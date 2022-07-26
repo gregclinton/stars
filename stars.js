@@ -72,7 +72,7 @@ for (const row of stars.trim().split('\n')) {
         continue;
     }
 
-    if (mag > 9) {
+    if (mag > 8) {
         continue;
     }
 
