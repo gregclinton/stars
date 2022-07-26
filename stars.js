@@ -2,8 +2,8 @@ let longitude = 0;
 let latitude = 0;
 let deviceEnabled = false;
 
-const start = 12;
-const end = 18;
+const start = 14;
+const end = start + 6;
 
 function enableDevice() {
     if (!deviceEnabled) {
@@ -69,6 +69,10 @@ for (const row of stars.trim().split('\n')) {
     const [ra, dec, mag] = star;
 
     if ((ra < start * 15) || (ra > end * 15)) {
+        continue;
+    }
+
+    if (mag > 10) {
         continue;
     }
 
