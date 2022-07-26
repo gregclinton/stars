@@ -68,7 +68,7 @@ for (const row of stars.trim().split('\n')) {
 
     dot.setAttributeNS(null, 'cx', raScale(ra));
     dot.setAttributeNS(null, 'cy',  decScale(dec));
-    dot.setAttributeNS(null, 'r', mag < 6 ? 1.0 : 0.5);
+    dot.setAttributeNS(null, 'r', mag < 6 ? 1.0 : mag < 8 ? 0.5 : 0.25);
     dot.setAttributeNS(null, 'style', 'stroke: none; fill: #' +
         (mag < 1 ? 'faa' : mag < 2 ? 'f44' : mag < 3 ? 'f00' : mag < 4 ? 'a00' : mag < 5 ? '800' : mag < 6 ? '600' : 
             mag < 7 ? 'f00' : mag < 8 ? 'a00' : mag < 9 ? '800' : '600'));
