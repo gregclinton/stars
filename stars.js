@@ -2,6 +2,9 @@ let longitude = 0;
 let latitude = 0;
 let deviceEnabled = false;
 
+const start = 12;
+const end = 18;
+
 function enableDevice() {
     if (!deviceEnabled) {
         DeviceOrientationEvent.requestPermission().then(() => {
@@ -33,7 +36,7 @@ const svg = document.getElementById('stars')
 const height = svg.getAttribute('height');
 const width = svg.getAttribute('width');
 const scale = (x, size, low, high) => size - ((x - low) * size / (high - low));
-const raScale = x => scale(x, width, 0, 360);
+const raScale = x => scale(x, width, start * 15, end * 15);
 const decScale = x => scale(x, height, -50, 90);
 
 const vline = (e, ra, color) => {
@@ -65,7 +68,7 @@ for (const row of stars.trim().split('\n')) {
     const star = row.trim().split(',');
     const [ra, dec, mag] = star;
 
-    if (mag > 9) {
+    if ((ra < start * 15) || (ra > end * 15)) {
         continue;
     }
 
