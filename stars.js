@@ -118,7 +118,7 @@ function plot(csvStars, messierFlat) {
             dot.setAttributeNS(null, 'cx', raScaler.scale(ra));
             dot.setAttributeNS(null, 'cy',  decScaler.scale(dec));
             dot.setAttributeNS(null, 'r', 0.5);
-            dot.setAttributeNS(null, 'style', 'stroke: none; fill: #660');
+            dot.setAttributeNS(null, 'style', 'stroke: none; fill: yellow');
             svg.appendChild(dot);
         }
     }
