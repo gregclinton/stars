@@ -67,15 +67,6 @@ const inclineNorth = hline(svg, 0, '#555');
 for (const row of stars.trim().split('\n')) {
     const star = row.trim().split(',');
     const [ra, dec, mag] = star;
-
-    if ((ra < start * 15) || (ra > end * 15)) {
-        continue;
-    }
-
-    if (mag > 8) {
-        continue;
-    }
-
     const dot = document.createElementNS(svgns, 'circle');
 
     dot.setAttributeNS(null, 'cx', raScale(ra));
