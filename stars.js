@@ -103,7 +103,7 @@ function plot(csvStars, messierFlat) {
         dot.setAttributeNS(null, 'r', mag < 6 ? 1.0 : 0.5);
         dot.setAttributeNS(null, 'style', 'stroke: none; fill: #' +
             (mag < 1 ? 'faa' : mag < 2 ? 'f44' : mag < 3 ? 'f00' : mag < 4 ? 'a00' : mag < 5 ? '800' : mag < 6 ? '600' : 
-             mag < 7 ? '600' : mag < 8 ? '500' : 400 ));
+             mag < 7 ? 'f00' : mag < 8 ? 'a00' : mag < 9 ? '800' : '600'));
         svg.appendChild(dot);
     }
 
