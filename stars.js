@@ -2,7 +2,7 @@ let longitude = 0;
 let latitude = 0;
 let deviceEnabled = false;
 
-const start = 15;
+const start = 18;
 const end = start + 1;
 
 function enableDevice() {
