@@ -3,7 +3,7 @@ let latitude = 0;
 let deviceEnabled = false;
 
 const start = 15;
-const end = start + 3;
+const end = start + 1;
 
 function enableDevice() {
     if (!deviceEnabled) {
