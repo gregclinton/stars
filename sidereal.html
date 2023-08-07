@@ -1,15 +1,18 @@
 <!--
-    https://gregclinton.github.io/sidereal
+    http://gregclinton.github.io/sidereal.html?16:22:32
+    file:///home/greg/stars/sidereal.html?16:22:32
 -->
 
 <body
-    style="background-color:black;color:brown;font-family:sans-serif;font-size: x-small;"
+    style="font-family:sans-serif;"
 >
 
-<div>
-    siderial
+<div id="main">
 </div>
 
 </body>
 
-<script></script>
+<script>
+    var sidereal = document.getElementById('main').innerHTML = window.location.search.substring(1);
+    document.getElementById('abc').innerHTML = sidereal;
+</script>
