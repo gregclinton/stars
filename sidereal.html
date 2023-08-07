@@ -1,5 +1,5 @@
 <!--
-    http://gregclinton.github.io/sidereal.html?16:22:32
+    https://gregclinton.github.io/stars/sidereal.html?16:22:32
     file:///home/greg/stars/sidereal.html?16:22:32
 -->
 
@@ -13,6 +13,7 @@
 </body>
 
 <script>
-    var sidereal = document.getElementById('main').innerHTML = window.location.search.substring(1);
-    document.getElementById('abc').innerHTML = sidereal;
+    var sidereal = window.location.search.substring(1);
+
+    document.getElementById('main').innerHTML = sidereal;
 </script>
