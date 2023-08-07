@@ -14,26 +14,35 @@
 
 <script>
     const q = window.location.search.substring(1);
-    var sidereal = q.substring(0, 2) * 15 + q.substring(3, 5) * 1 + q.substring(6, 8) * 1;
+    var sidereal = 15 * (q.substring(0, 2) * 1 + q.substring(3, 5) * 1 / 60 + q.substring(6, 8) * 1 / 3600);
     const longitude = -117.64;
-    const dt = new Date();
-    let y = dt.getUTCFullYear();
-    let m = dt.getUTCMonth() + 1;
-    const d = dt.getUTCDate();
+    var dt = new Date();
+    var finished = false;
 
-    if (m <= 2) {
-        m += 12;
-        y--;
+    while (!finished) {
+        dt = new Date(dt.getTime() + 1000);
+        let y = dt.getUTCFullYear();
+        let m = dt.getUTCMonth() + 1;
+        const d = dt.getUTCDate();
+
+        if (m <= 2) {
+            m += 12;
+            y--;
+        }
+
+        const floor = Math.floor;
+        const u = dt.getUTCHours() + dt.getUTCMinutes() / 60 + dt.getUTCSeconds() / 3600;
+        const jd = floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d - 13 -1524.5 + u / 24.0 - 2400000.5;
+        const jd0 = floor(jd);
+        const eph  = (jd0 - 51544.5) / 36525.0;
+        const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
+
+        document.getElementById('main').innerHTML = sidereal;
+        document.getElementById('main').innerHTML = y;
+        document.getElementById('main').innerHTML = (gst * 15 + longitude) % 360;
+        document.getElementById('main').innerHTML = dt;
+    
+        finished = (gst * 15 + longitude) % 360 > sidereal;
     }
 
-    const floor = Math.floor;
-    const u = dt.getUTCHours() + dt.getUTCMinutes() / 60 + dt.getUTCSeconds() / 3600;
-    const jd = floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d - 13 -1524.5 + u / 24.0 - 2400000.5;
-    const jd0 = floor(jd);
-    const eph  = (jd0 - 51544.5) / 36525.0;
-    const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
-
-    document.getElementById('main').innerHTML = sidereal;
-
-//    document.getElementById('main').innerHTML = (gst * 15 + longitude) % 360;
 </script>
