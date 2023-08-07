@@ -17,9 +17,8 @@
     const sidereal = 15 * (q.substring(0, 2) * 1 + q.substring(3, 5) / 60 + q.substring(6, 8) / 3600);
     const longitude = -117.64;
     var dt = new Date();
-    var finished = false;
 
-    while (!finished) {
+    while (true) {
         dt = new Date(dt.getTime() + 1000);
         let y = dt.getUTCFullYear();
         let m = dt.getUTCMonth() + 1;
@@ -37,9 +36,16 @@
         const eph  = (jd0 - 51544.5) / 36525.0;
         const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
 
-        document.getElementById('main').innerHTML = dt;
-    
-        finished = (gst * 15 + longitude) % 360 > sidereal;
+        if ((gst * 15 + longitude) % 360 > sidereal) {
+            const hh = dt.getHours();
+            const mm = dt.getMinutes();
+            const ss = dt.getSeconds();
+            const pad = x => (x < 10 ? '0' : '') + x;
+            const answer = hh - (hh > 12 ? 12 : 0) + ':' + pad(mm)+ ':' +  pad(ss);
+
+            document.getElementById('main').innerHTML = answer;
+            break;
+        }
     }
 
 </script>
