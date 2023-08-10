@@ -1,40 +1,9 @@
-let longitude = -117;
+let longitude = 0;
 let latitude = 0;
 let deviceEnabled = false;
 
 const start = 16;
 const end = start + 1;
-
-const floor = Math.floor;
-const hmsToDegrees = (h, m, s, H, M, S) => 15 * (h + m / 60 + s / 360);
-const utcToJd = (y, m, d, H, M, S) => floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d - 13 -1524.5 + hmsToDegrees(H, M, S) / 360.0 - 2400000.5;
-
-function degreesToHms(degrees) {
-    const h = floor(degrees / 15);
-    const m = floor(degrees % 60)
-    const s = floor(degrees % 3600);
-    const pad = n => (n < 10 ? '0' : '') + n;
-
-    return [pad(h), pad(m), pad(s)].join(':');
-} 
-
-function localSiderealTime() {
-    // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
-
-    const dt = new Date();
-    const y = dt.getUTCFullYear();
-    const m = dt.getUTCMonth() + 1;
-    const d = dt.getUTCDate();
-    const H = dt.getUTCHours();
-    const M = dt.getUTCMinutes();
-    const S = dt.getUTCSeconds();
-    const jd = utcToJd(y, m, d, H, M, S);
-    const jd0 = floor(jd);
-    const eph  = (jd0 - 51544.5) / 36525.0;
-    const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
-
-    return degreesToHms((gst + longitude) % 360);
-}
 
 function enableDevice() {
     if (!deviceEnabled) {
@@ -94,10 +63,15 @@ const meridian = vline(svg, 0, '#555');
 const inclineSouth = hline(svg, 0, '#555');
 const inclineNorth = hline(svg, 0, '#555');
 
+function adjustForPrecession(star) {
+    const [ra, dec, mag] = star;
+
+    return [ra, dec, mag];
+}
+
 // draw stars
 for (const row of stars.trim().split('\n')) {
-    const star = row.trim().split(',');
-    const [ra, dec, mag] = star;
+    const [ra, dec, mag] = adjustForPrecession(row.trim().split(','));
     const dot = document.createElementNS(svgns, 'circle');
 
     dot.setAttributeNS(null, 'cx', raScale(ra));
