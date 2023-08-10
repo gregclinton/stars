@@ -65,8 +65,27 @@ const inclineNorth = hline(svg, 0, '#555');
 
 function adjustForPrecession(star) {
     const [ra, dec, mag] = star;
-
-    return [ra, dec, mag];
+    const floor = Math.floor;
+    const y = 2023;
+    const m = 6;
+    const d = 1;
+    const jd = floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d - 13 -1524.5;
+                           
+    // https://github.com/JohannesBuchner/libnova/blob/master/src/precession.c
+    const jd2000 = 2451545;
+    const t = (jd - jd2000) / 36525.0 / 3600;
+	const t2 = t * t;
+	const t3 = t2 * t;
+	const zeta = 2306.2181 * t + 0.30188 * t2 + 0.017998 * t3;
+	const eta = 2306.2181 * t + 1.09468 * t2 + 0.041833 * t3;
+	const theta = 2004.3109 * t - 0.42665 * t2 - 0.041833 * t3;
+    const cos = Math.cos;
+    const sin = Math.sin;
+    const radians = degrees => degrees * Math.PI / 180;
+	const A = cos(radians(dec)) * sin(ra + zeta);
+	const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
+    const degrees = radians => radians * (180 / Math.PI);
+    return [degrees(Math.atan2(A, B) + eta), dec, mag];
 }
 
 // draw stars
