@@ -1,4 +1,4 @@
-let longitude = 0;
+let longitude = -117;
 let latitude = 0;
 let deviceEnabled = false;
 
@@ -11,27 +11,29 @@ const utcToJd = (y, m, d, H, M, S) => floor(365.25 * (y + 4716)) + floor(30.6001
 
 function degreesToHms(degrees) {
     const h = floor(degrees / 15);
-    const m = floor((degrees % 15) / 60)
-    const s = floor((degrees % 15) / 3600);
+    const m = floor(degrees % 60)
+    const s = floor(degrees % 3600);
     const pad = n => (n < 10 ? '0' : '') + n;
 
-    return [pad(h - (h > 12 ? 12 : 0)), pad(m), pad(s)].join(':');
+    return [pad(h), pad(m), pad(s)].join(':');
 } 
 
-function localMeridian(y, m, d, H, M, S) {
+function localSiderealTime() {
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
-    if (m <= 2) {
-        m += 12;
-        y--;
-    }
-
+    const dt = new Date();
+    const y = dt.getUTCFullYear();
+    const m = dt.getUTCMonth() + 1;
+    const d = dt.getUTCDate();
+    const H = dt.getUTCHours();
+    const M = dt.getUTCMinutes();
+    const S = dt.getUTCSeconds();
     const jd = utcToJd(y, m, d, H, M, S);
     const jd0 = floor(jd);
     const eph  = (jd0 - 51544.5) / 36525.0;
     const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
 
-    localMeridian()
+    return degreesToHms((gst + longitude) % 360);
 }
 
 function enableDevice() {
