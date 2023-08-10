@@ -118,7 +118,7 @@ function julianDay() {
         }
 
         dot.setAttributeNS(null, 'cx', raScale(raPrecessed));
-        dot.setAttributeNS(null, 'cy',  decScale(dec > 88 ? dec : degrees(Math.asin(C))));
+        dot.setAttributeNS(null, 'cy', decScale(dec > 88 ? dec : degrees(Math.asin(C))));
         dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
         dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
         svg.appendChild(dot);
