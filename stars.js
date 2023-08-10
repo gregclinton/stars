@@ -85,14 +85,15 @@ function julianDay() {
 {
     // https://github.com/JohannesBuchner/libnova/blob/master/src/precession.c
 
-    const jd = julianDay();
+    const radians = degrees => degrees * Math.PI / 180;
+    const degrees = radians => radians * (180 / Math.PI);
+
     const jd2000 = 2451545;
-    const t = (jd - jd2000) / 36525.0 / 3600;
-    const t2 = t * t;
-    const t3 = t2 * t;
-    const zeta = 2306.2181 * t + 0.30188 * t2 + 0.017998 * t3;
-    const eta = 2306.2181 * t + 1.09468 * t2 + 0.041833 * t3;
-    const theta = 2004.3109 * t - 0.42665 * t2 - 0.041833 * t3;
+    const t = (julianDay() - jd2000) / 36525.0 / 3600;
+
+    const zeta = radians(2306.2181 * t + 0.30188 * t ** 2 + 0.017998 * t ** 3);
+    const eta = radians(2306.2181 * t + 1.09468 * t ** 2 + 0.041833 * t ** 3);
+    const theta = radians(2004.3109 * t - 0.42665 * t ** 2 - 0.041833 * t ** 3);
 
     for (const row of stars.trim().split('\n')) {
         const [ra, dec, mag] = row.trim().split(',');
@@ -101,15 +102,23 @@ function julianDay() {
         // adjust ra and dec for precession
         const cos = Math.cos;
         const sin = Math.sin;
-        const radians = degrees => degrees * Math.PI / 180;
-        const degrees = radians => radians * (180 / Math.PI);
 
         const A = cos(radians(dec)) * sin(radians(ra) + zeta);
         const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
-        const raPrecessed = degrees(Math.atan2(A, B) + eta);
+        const C = sin(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) + cos(theta) * sin(radians(dec));
+
+        let raPrecessed = degrees(Math.atan2(A, B) + eta);
+
+        while (raPrecessed > 360) {
+            raPrecessed -= 360;
+        }
+
+        while (raPrecessed < 0) {
+            raPrecessed += 360;
+        }
 
         dot.setAttributeNS(null, 'cx', raScale(raPrecessed));
-        dot.setAttributeNS(null, 'cy',  decScale(dec));
+        dot.setAttributeNS(null, 'cy',  decScale(dec > 88 ? dec : degrees(Math.asin(C))));
         dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
         dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
         svg.appendChild(dot);
