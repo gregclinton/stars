@@ -5,6 +5,8 @@ let deviceEnabled = false;
 const start = 16;
 const end = start + 1;
 
+const hmsToDegrees = (h, m, s) => 15 * (h + m / 60 + s / 360);
+
 function enableDevice() {
     if (!deviceEnabled) {
         DeviceOrientationEvent.requestPermission().then(() => {
