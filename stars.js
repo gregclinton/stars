@@ -102,7 +102,7 @@ function julianDay() {
         const radians = degrees => degrees * Math.PI / 180;
         const degrees = radians => radians * (180 / Math.PI);
     
-        const A = cos(radians(dec)) * sin(ra + zeta);
+        const A = cos(radians(dec)) * sin(radians(ra) + zeta);
         const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
         const raPrecessed = degrees(Math.atan2(A, B) + eta);
     
@@ -136,7 +136,7 @@ setInterval(() => {
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
     const jd = julianDay() - 2400000.5;
-    const jd0 = floor(jd);
+    const jd0 = Math.floor(jd);
     const eph  = (jd0 - 51544.5) / 36525.0;
     const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
     const x = raScale((gst * 15 + longitude) % 360);
