@@ -63,41 +63,55 @@ const meridian = vline(svg, 0, '#555');
 const inclineSouth = hline(svg, 0, '#555');
 const inclineNorth = hline(svg, 0, '#555');
 
-function adjustForPrecession(star) {
-    const [ra, dec, mag] = star;
-    const floor = Math.floor;
-    const y = 2023;
-    const m = 6;
-    const d = 1;
-    const jd = floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d - 13 -1524.5;
-                           
-    // https://github.com/JohannesBuchner/libnova/blob/master/src/precession.c
-    const jd2000 = 2451545;
-    const t = (jd - jd2000) / 36525.0 / 3600;
-	const t2 = t * t;
-	const t3 = t2 * t;
-	const zeta = 2306.2181 * t + 0.30188 * t2 + 0.017998 * t3;
-	const eta = 2306.2181 * t + 1.09468 * t2 + 0.041833 * t3;
-	const theta = 2004.3109 * t - 0.42665 * t2 - 0.041833 * t3;
-    const cos = Math.cos;
-    const sin = Math.sin;
-    const radians = degrees => degrees * Math.PI / 180;
-	const A = cos(radians(dec)) * sin(ra + zeta);
-	const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
-    const degrees = radians => radians * (180 / Math.PI);
-    return [degrees(Math.atan2(A, B) + eta), dec, mag];
+function julianDay() {
+    const dt = new Date();
+    let y = dt.getUTCFullYear();
+    let m = dt.getUTCMonth() + 1;
+    const d = dt.getUTCDate();
+
+    if (m <= 2) {
+        m += 12;
+        y--;
+    }
+
+    const u = dt.getUTCHours() + dt.getUTCMinutes() / 60 + dt.getUTCSeconds() / 3600;
+
+    return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d - 13 - 1524.5 + u / 24.0;
 }
 
 // draw stars
-for (const row of stars.trim().split('\n')) {
-    const [ra, dec, mag] = adjustForPrecession(row.trim().split(','));
-    const dot = document.createElementNS(svgns, 'circle');
+{
+    // https://github.com/JohannesBuchner/libnova/blob/master/src/precession.c
 
-    dot.setAttributeNS(null, 'cx', raScale(ra));
-    dot.setAttributeNS(null, 'cy',  decScale(dec));
-    dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
-    dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
-    svg.appendChild(dot);
+    const jd = julianDay();
+    const jd2000 = 2451545;
+    const t = (jd - jd2000) / 36525.0 / 3600;
+    const t2 = t * t;
+    const t3 = t2 * t;
+    const zeta = 2306.2181 * t + 0.30188 * t2 + 0.017998 * t3;
+    const eta = 2306.2181 * t + 1.09468 * t2 + 0.041833 * t3;
+    const theta = 2004.3109 * t - 0.42665 * t2 - 0.041833 * t3;
+
+    for (const row of stars.trim().split('\n')) {
+        const [ra, dec, mag] = row.trim().split(',');
+        const dot = document.createElementNS(svgns, 'circle');
+
+        // adjust ra and dec for precession
+        const cos = Math.cos;
+        const sin = Math.sin;
+        const radians = degrees => degrees * Math.PI / 180;
+        const degrees = radians => radians * (180 / Math.PI);
+    
+        const A = cos(radians(dec)) * sin(ra + zeta);
+        const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
+        const raPrecessed = degrees(Math.atan2(A, B) + eta);
+    
+        dot.setAttributeNS(null, 'cx', raScale(raPrecessed));
+        dot.setAttributeNS(null, 'cy',  decScale(dec));
+        dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
+        dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
+        svg.appendChild(dot);
+    }
 }
 
 // draw messiers
@@ -121,19 +135,7 @@ for (const messier of messiers.trim().split('\n').map(row => row.trim().split(' 
 setInterval(() => {
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
-    const dt = new Date();
-    let y = dt.getUTCFullYear();
-    let m = dt.getUTCMonth() + 1;
-    const d = dt.getUTCDate();
-
-    if (m <= 2) {
-        m += 12;
-        y--;
-    }
-
-    const floor = Math.floor;
-    const u = dt.getUTCHours() + dt.getUTCMinutes() / 60 + dt.getUTCSeconds() / 3600;
-    const jd = floor(365.25 * (y + 4716)) + floor(30.6001 * (m + 1)) + d - 13 -1524.5 + u / 24.0 - 2400000.5;
+    const jd = julianDay() - 2400000.5;
     const jd0 = floor(jd);
     const eph  = (jd0 - 51544.5) / 36525.0;
     const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
