@@ -64,6 +64,8 @@ const inclineSouth = hline(svg, 0, '#555');
 const inclineNorth = hline(svg, 0, '#555');
 
 function julianDay() {
+    // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
+
     const dt = new Date();
     let y = dt.getUTCFullYear();
     let m = dt.getUTCMonth() + 1;
@@ -101,11 +103,11 @@ function julianDay() {
         const sin = Math.sin;
         const radians = degrees => degrees * Math.PI / 180;
         const degrees = radians => radians * (180 / Math.PI);
-    
+
         const A = cos(radians(dec)) * sin(radians(ra) + zeta);
         const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
         const raPrecessed = degrees(Math.atan2(A, B) + eta);
-    
+
         dot.setAttributeNS(null, 'cx', raScale(raPrecessed));
         dot.setAttributeNS(null, 'cy',  decScale(dec));
         dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
