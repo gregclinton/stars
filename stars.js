@@ -93,6 +93,7 @@ function julianDay() {
     const theta = radians(2004.3109 * t - 0.42665 * t ** 2 - 0.041833 * t ** 3);
 
     function precess(ra, dec) {
+        return [ra, dec];
         const cos = Math.cos;
         const sin = Math.sin;
 
