@@ -81,7 +81,6 @@ function julianDay() {
     return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d - 13 - 1524.5 + u / 24.0;
 }
 
-// draw stars
 {
     // https://github.com/JohannesBuchner/libnova/blob/master/src/precession.c
 
@@ -104,6 +103,7 @@ function julianDay() {
         return [degrees(Math.atan2(A, B) + eta), dec > 88 ? dec : degrees(Math.asin(C))];
     }
 
+    // draw stars
     for (const row of stars.trim().split('\n')) {
         const [ra, dec, mag] = row.trim().split(',');
 
