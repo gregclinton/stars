@@ -36,7 +36,7 @@ const svg = document.getElementById('stars')
 const height = svg.getAttribute('height');
 const width = svg.getAttribute('width');
 const scale = (x, size, low, high) => size - ((x - low) * size / (high - low));
-const raScale = x => scale(x, width, start * 15, end * 15);
+const raScale = x => scale(x + (x < 0 ? 360 : x > 360 ? -360 : 0), width, start * 15, end * 15);
 const decScale = x => scale(x, height, -50, 90);
 
 const vline = (e, ra, color) => {
@@ -107,17 +107,7 @@ function julianDay() {
         const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
         const C = sin(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) + cos(theta) * sin(radians(dec));
 
-        let raPrecessed = degrees(Math.atan2(A, B) + eta);
-
-        while (raPrecessed > 360) {
-            raPrecessed -= 360;
-        }
-
-        while (raPrecessed < 0) {
-            raPrecessed += 360;
-        }
-
-        dot.setAttributeNS(null, 'cx', raScale(raPrecessed));
+        dot.setAttributeNS(null, 'cx', raScale(degrees(Math.atan2(A, B) + eta)));
         dot.setAttributeNS(null, 'cy', decScale(dec > 88 ? dec : degrees(Math.asin(C))));
         dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
         dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
