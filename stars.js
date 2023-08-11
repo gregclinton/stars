@@ -97,21 +97,24 @@ function julianDay() {
 
     for (const row of stars.trim().split('\n')) {
         const [ra, dec, mag] = row.trim().split(',');
-        const dot = document.createElementNS(svgns, 'circle');
 
-        // adjust ra and dec for precession
-        const cos = Math.cos;
-        const sin = Math.sin;
+        if (mag < 5) {
+            const dot = document.createElementNS(svgns, 'circle');
 
-        const A = cos(radians(dec)) * sin(radians(ra) + zeta);
-        const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
-        const C = sin(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) + cos(theta) * sin(radians(dec));
+            // adjust ra and dec for precession
+            const cos = Math.cos;
+            const sin = Math.sin;
 
-        dot.setAttributeNS(null, 'cx', raScale(degrees(Math.atan2(A, B) + eta)));
-        dot.setAttributeNS(null, 'cy', decScale(dec > 88 ? dec : degrees(Math.asin(C))));
-        dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
-        dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
-        svg.appendChild(dot);
+            const A = cos(radians(dec)) * sin(radians(ra) + zeta);
+            const B = cos(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) - sin(theta) * sin(radians(dec));
+            const C = sin(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) + cos(theta) * sin(radians(dec));
+
+            dot.setAttributeNS(null, 'cx', raScale(degrees(Math.atan2(A, B) + eta)));
+            dot.setAttributeNS(null, 'cy', decScale(dec > 88 ? dec : degrees(Math.asin(C))));
+            dot.setAttributeNS(null, 'r', [1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1][Math.max(0, Math.floor(parseFloat(mag)))]);
+            dot.setAttributeNS(null, 'style', 'stroke: none; fill: #a00');
+            svg.appendChild(dot);
+        }
     }
 }
 
