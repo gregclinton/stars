@@ -36,7 +36,7 @@ const svg = document.getElementById('stars')
 const height = svg.getAttribute('height');
 const width = svg.getAttribute('width');
 const scale = (x, size, low, high) => size - ((x - low) * size / (high - low));
-const raScale = x => scale(x + (x < 0 ? 360 : x > 360 ? -360 : 0), width, start * 15, end * 15);
+const raScale = x => scale((x + 360) % 360, width, start * 15, end * 15);
 const decScale = x => scale(x, height, -50, 90);
 
 const vline = (e, ra, color) => {
@@ -146,7 +146,7 @@ setInterval(() => {
     const jd0 = Math.floor(jd);
     const eph  = (jd0 - 51544.5) / 36525.0;
     const gst =  6.697374558 + 1.0027379093 * (jd - jd0) * 24.0 + (8640184.812866 + (0.093104 - 0.0000062 * eph) * eph) * eph / 3600.0;
-    const x = raScale((gst * 15 + longitude) % 360);
+    const x = raScale(gst * 15 + longitude);
 
     meridian.setAttribute('x1', x);
     meridian.setAttribute('x2', x);
