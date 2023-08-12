@@ -1,5 +1,3 @@
-let localSiderealTime = '17:14:11';
-
 function localSiderealDegrees() {
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
@@ -10,7 +8,3 @@ function localSiderealDegrees() {
 
     return gst * 15 + longitude;
 }
-
-setInterval(() => {
-    localSiderealTime = '17:14:22';
-}, 1000);

@@ -5,6 +5,7 @@
 <div>
     <div id="name"></div>
     <div id="ra"></div>
+    <div id="sidereal"></div>
     <div id="dec"></div>
     <div id="decNorth"></div>
     <div id="decSouth"></div>
@@ -64,6 +65,10 @@
                 put('decSouth', formatDec(incline - (90 - latitude)));
                 put('decNorth', formatDec(incline - latitude));
             });
+
+            setInterval(() => {
+                put('sidereal', formatRa(localSiderealDegrees()));
+            }, 1000);
 
             clearInterval(interval);
         }
