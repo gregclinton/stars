@@ -2,15 +2,3 @@ body
 {
     font-family: Arial, Helvetica, sans-serif;
 }
-
-.calculator *
-{
-    margin: 5px;
-}
-
-.star-map svg
-{
-    background-color:black;
-    color:brown;
-    font-size: x-small;
-}

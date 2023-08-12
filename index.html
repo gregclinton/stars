@@ -4,53 +4,15 @@
 
 <body onclick="enableDevice()">
 
-<div class="calculator">
-    <div>
-        <div>ra</div>
-        <input size="2" maxlength="2" id="ra-h"></input>
-        <input size="1" maxlength="2" id="ra-m"></input>
-        <input size="1" maxlength="2" id="ra-s"></input>
-    </div>
-    <div>
-        <div>dec</div>
-        <input size="2" maxlength="4" id="dec-deg"></input>
-        <input size="1" maxlength="2" id="dec-m"></input>
-        <input size="1" maxlength="2" id="dec-s"></input>
-    </div>
-
-    <button onclick="calculatePrecession()">precess</button>
-</div>
-
 <div>
-    <span id="longitude"></span>
-    <span id="precessed-ra"></span>
-</div>
-
-<div class="star-map" hidden>
-    <svg id="stars" height="1600" width="400"></svg>
 </div>
 
 </body>
 
 <link href="main.css" rel="stylesheet"/>
-<script src="hipparcos.js"></script>
-<script src="messier.js"></script>
+<script src="declination.js"></script>
 <script src="julian.js"></script>
 <script src="longitude.js"></script>
 <script src="sidereal.js"></script>
 <script src="precess.js"></script>
 <script src="stars.js"></script>
-
-<script>
-    function put(name, value) {
-        document.getElementById(name).innerHTML = value;
-    }
-
-    function calculatePrecession() {
-        enableDevice();
-        const [raPrecessed, decPrecessed] = precess(80, 81);
-
-        put("longitude", longitude);
-        put("precessed-ra", raPrecessed);
-    }
-</script>
