@@ -6,13 +6,14 @@
     <div id="name"></div>
     <div id="ra"></div>
     <div id="dec"></div>
+    <div id="decNorth"></div>
+    <div id="decSouth"></div>
     <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph, 17:10:23</div>
 </div>
 
 </body>
 
 <link href="main.css" rel="stylesheet"/>
-<script src="declination.js"></script>
 <script src="julian.js"></script>
 <script src="longitude.js"></script>
 <script src="sidereal.js"></script>
@@ -48,5 +49,19 @@
         put('name', name);
         put('ra', formatRa(raPrecessed));
         put('dec', formatDec(decPrecessed));
+        put('decNorth', formatDec(declinationNorth));
     }
+
+    const interval = setInterval(() => {
+        if (deviceEnabled) {
+            window.addEventListener('deviceorientation', e => {
+                const incline = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
+
+                put('decSouth', formatDec(incline - (90 - latitude)));
+                put('decNorth', formatDec(incline - latitude));
+            });
+
+            clearInterval(interval);
+        }
+    }, 1000);
 </script>
