@@ -39,7 +39,12 @@
     }
 
     function formatDec(degrees) {
-        return Math.floor(degrees);
+        const sign = degrees < 0 ? '-' : '';
+        const absDegrees = Math.abs(degrees);
+        const wholePart = Math.floor(absDegrees);
+        const minutes = Math.floor(100 * (absDegrees - wholePart));
+
+        return sign + wholePart + ' ' + minutes;
     }
 
     function explore(name, ra, dec) {
@@ -49,7 +54,6 @@
         put('name', name);
         put('ra', formatRa(raPrecessed));
         put('dec', formatDec(decPrecessed));
-        put('decNorth', formatDec(declinationNorth));
     }
 
     const interval = setInterval(() => {
