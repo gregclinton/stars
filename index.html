@@ -4,9 +4,26 @@
 
 <body onclick="enableDevice()">
 
+<div class="calculator">
+    <div>ra</div>
+    <div>
+        <input size="1" maxlength="2" id="ra-h"></input>
+        <input size="1" maxlength="2" id="ra-m"></input>
+        <input size="1" maxlength="2" id="ra-s"></input>
+    </div>
+    <div>
+        <div>dec</div>
+        <input size="2" maxlength="4" id="dec-deg"></input>
+        <input size="1" maxlength="2" id="dec-m"></input>
+        <input size="1" maxlength="2" id="dec-s"></input>    
+    </div>
+    <button>calculate</button>
+</div>
+
 <div>
-    ra
-    <input size="2" maxlength="2"></input>
+    <span id="precessed-ra-h"></span>
+    <span id="precessed-ra-m"></span>
+    <span id="precessed-ra-s"></span> &nbsp;
 </div>
 
 <div>
