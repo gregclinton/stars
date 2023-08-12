@@ -4,7 +4,9 @@
 
 <div>
     <div id="name"></div>
-    <div onclick="explore('α Oph', '17:34:56', '12 33')">α Oph, 17:34:56</div>
+    <div id="ra"></div>
+    <div id="dec"></div>
+    <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph, 17:10:23</div>
 </div>
 
 </body>
@@ -17,8 +19,34 @@
 <script src="precess.js"></script>
 
 <script>
+    function put(name, value) {
+        document.getElementById(name).innerHTML = value;
+    }
+
+    function parseRa(s) {
+        parts = s.split(':');
+        return 15 * (1 * parts[0] + parts[1] / 60 + parts[2] / 3600);
+    }
+
+    function parseDec(s) {
+        parts = s.split(' ');
+        return 1 * parts[0] + parts[1] / 60;
+    }
+
+    function formatRa(degrees) {
+        return Math.floor(degrees / 15);
+    }
+
+    function formatDec(degrees) {
+        return degrees / 15;
+    }
+
     function explore(name, ra, dec) {
         enableDevice();
-        document.getElementById('name').innerHTML = name;
+        const [raPrecessed, decPrecessed] = precess(parseRa(ra), parseDec(dec));
+
+        put('name', name);
+        put('ra', formatRa(raPrecessed));
+        put('dec', formatDec(decPrecessed));
     }
 </script>
