@@ -11,10 +11,6 @@ function localSiderealDegrees() {
     return gst * 15 + longitude;
 }
 
-function localSiderealTime() {
-    const degrees = localSiderealDegrees();
-}
-
 setInterval(() => {
     localSiderealTime = '17:14:22';
 }, 1000);
