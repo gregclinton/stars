@@ -5,7 +5,7 @@ let deviceEnabled = false;
 const start = 16;
 const end = start + 2;
 
-function enableDevice() {
+function enableDevice() { return;
     if (!deviceEnabled) {
         DeviceOrientationEvent.requestPermission().then(() => {
             navigator.geolocation.getCurrentPosition(position => {
