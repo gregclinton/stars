@@ -7,8 +7,7 @@
     <div id="ra"></div>
     <div id="sidereal"></div>
     <div id="dec"></div>
-    <div id="decNorth"></div>
-    <div id="decSouth"></div>
+    <div id="decScope"></div>
     <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph, 17:10:23</div>
 </div>
 
@@ -66,10 +65,9 @@
     const interval = setInterval(() => {
         if (deviceEnabled) {
             window.addEventListener('deviceorientation', e => {
-                const incline = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
+                const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
 
-                put('decSouth', formatDec(incline - (90 - latitude)));
-                put('decNorth', formatDec(incline - latitude));
+                put('decScope', formatDec(degrees + ((degrees > longitude ? -90 : 0) - latitude)));
             });
 
             setInterval(() => {
