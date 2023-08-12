@@ -5,7 +5,7 @@ let deviceEnabled = false;
 const start = 16;
 const end = start + 2;
 
-function enableDevice() { return;
+function enableDevice() {
     if (!deviceEnabled) {
         DeviceOrientationEvent.requestPermission().then(() => {
             navigator.geolocation.getCurrentPosition(position => {
@@ -91,7 +91,7 @@ function julianDay() {
     const eta = radians(2306.2181 * t + 1.09468 * t ** 2 + 0.041833 * t ** 3);
     const theta = radians(2004.3109 * t - 0.42665 * t ** 2 - 0.041833 * t ** 3);
 
-    function precess(ra, dec) { return [ra, dec];
+    function precess(ra, dec) {
         const cos = Math.cos;
         const sin = Math.sin;
 
@@ -139,7 +139,7 @@ function julianDay() {
 }
 
 // update meridian
-setInterval(() => { return;
+setInterval(() => {
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
     const jd = julianDay() - 2400000.5;
