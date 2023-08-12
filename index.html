@@ -2,9 +2,9 @@
     https://gregclinton.github.io/stars/
 -->
 
-<body onclick="enableDevice()">
-
 <div>
+    <div id="name"></div>
+    <div onclick="explore('α Oph', '17:34:56', '12 33')">α Oph, 17:34:56</div>
 </div>
 
 </body>
@@ -15,4 +15,10 @@
 <script src="longitude.js"></script>
 <script src="sidereal.js"></script>
 <script src="precess.js"></script>
-<script src="stars.js"></script>
+
+<script>
+    function explore(name, ra, dec) {
+        enableDevice();
+        document.getElementById('name').innerHTML = name;
+    }
+</script>
