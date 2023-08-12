@@ -35,8 +35,14 @@
         return 1 * parts[0] + parts[1] / 60;
     }
 
+    const pad = n => n < 10 ? '0' : '' + n;
+
     function formatRa(degrees) {
-        return Math.floor(degrees / 15);
+        const wholePart = Math.floor(degrees / 15);
+        const minutes = 3; //degrees - wholePart
+        const seconds = 0;
+
+        return wholePart + ' ' + pad(minutes) + ' ' + pad(seconds);
     }
 
     function formatDec(degrees) {
@@ -45,7 +51,7 @@
         const wholePart = Math.floor(absDegrees);
         const minutes = Math.floor(100 * (absDegrees - wholePart));
 
-        return sign + wholePart + ' ' + minutes;
+        return sign + pad(wholePart) + ' ' + pad(15 * (minutes / 15));
     }
 
     function explore(name, ra, dec) {
