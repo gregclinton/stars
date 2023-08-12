@@ -18,7 +18,3 @@ function precess(ra, dec) {
     const degrees = radians => radians * 180 / Math.PI;
     return [degrees(Math.atan2(A, B) + eta), dec > 88 ? dec : degrees(Math.asin(C))];
 }
-
-function calculatePrecession() {
-    enableDevice();
-}

@@ -15,15 +15,15 @@
         <div>dec</div>
         <input size="2" maxlength="4" id="dec-deg"></input>
         <input size="1" maxlength="2" id="dec-m"></input>
-        <input size="1" maxlength="2" id="dec-s"></input>    
+        <input size="1" maxlength="2" id="dec-s"></input>
     </div>
+
     <button onclick="calculatePrecession()">precess</button>
 </div>
 
 <div>
-    <span id="precessed-ra-h"></span>
-    <span id="precessed-ra-m"></span>
-    <span id="precessed-ra-s"></span> &nbsp;
+    <span id="longitude"></span>
+    <span id="precessed-ra"></span>
 </div>
 
 <div class="star-map" hidden>
@@ -40,3 +40,17 @@
 <script src="sidereal.js"></script>
 <script src="precess.js"></script>
 <script src="stars.js"></script>
+
+<script>
+    function put(name, value) {
+        document.getElementById(name).innerHTML = value;
+    }
+
+    function calculatePrecession() {
+        enableDevice();
+        const [raPrecessed, decPrecessed] = precess(80, 81);
+
+        put("longitude", longitude);
+        put("precessed-ra", raPrecessed);
+    }
+</script>
