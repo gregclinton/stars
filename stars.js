@@ -139,7 +139,7 @@ function julianDay() {
 }
 
 // update meridian
-setInterval(() => {
+setInterval(() => { return;
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
     const jd = julianDay() - 2400000.5;
