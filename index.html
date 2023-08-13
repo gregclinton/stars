@@ -21,10 +21,16 @@
 
 <script>
     function addStars() {
-        const node = document.createElement('div');
-        node.innerHTML = 'abc';
-        node.setAttribute('onclick', 'alert("xxx")')
-        document.getElementById('stars').appendChild(node);
+        const div = document.getElementById('stars');
+
+        const stars = [
+            ['η Oph', '17:10:23', '-15 43']
+        ].forEach(star => {
+            const node = document.createElement('div');
+            node.innerHTML = star[0];
+            node.setAttribute('onclick', 'explore("' + star[0] + '","' + star[1] + '","' + star[2] + '")');
+            div.appendChild(node);
+        });
     }
     addStars();
 
