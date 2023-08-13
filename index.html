@@ -41,14 +41,14 @@
             eta = new Date(eta.getTime() + 1000);
         }
 
-        targetIncline = decPrecessed - latitude;
+        targetIncline = decPrecessed + latitude;
         put('name', name);
     }
 
     window.addEventListener('deviceorientation', e => {
         const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
 
-        put('incline', degrees + ((degrees > latitude ? -90 : 0) - latitude));
+        put('incline', degrees - targetIncline));
     });
 
     setInterval(() => {
