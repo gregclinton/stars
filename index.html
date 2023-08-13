@@ -6,7 +6,7 @@
     <div id="name"></div>
     <div id="time"></div>
     <div id="incline"></div>
-    <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph, 17:10:23</div>
+    <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph</div>
 </div>
 
 </body>
@@ -19,32 +19,25 @@
 
 <script>
     const floor = Math.floor;
-    let transitTime = new Date();
+    let eta = new Date();
     let targetIncline = 0;
 
     function put(name, value) {
         document.getElementById(name).innerHTML = value;
     }
 
-    function parseRa(s) {
-        parts = s.split(':');
-        return 15 * (1 * parts[0] + parts[1] / 60 + parts[2] / 3600);
-    }
-
-    function parseDec(s) {
-        parts = s.split(' ');
-        return 1 * parts[0] + parts[1] / 60;
-    }
-
     function explore(name, ra, dec) {
         enableDevice();
+        const decParts = s.split(' ');
+        const dec = 1 * decParts[0] + decParts[1] / 60;
+        const raParts = s.split(':');
+        const ra = 15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600);
+        const [raPrecessed, decPrecessed] = precess(ra, dec);
 
-        const [raPrecessed, decPrecessed] = precess(parseRa(ra), parseDec(dec));
+        eta = new Date();
 
-        transitTime = new Date();
-
-        while (Math.abs(localSiderealDegrees(transitTime) - raPrecessed) > 1) {
-            transitTime = new Date(transitTime.getTime() + 1000);
+        while (Math.abs(localSiderealDegrees(eta) - raPrecessed) > 1) {
+            eta = new Date(eta.getTime() + 1000);
         }
 
         targetIncline = decPrecessed - latitude;
@@ -54,12 +47,12 @@
     window.addEventListener('deviceorientation', e => {
         const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
 
-        put('incline', degrees + ((degrees > longitude ? -90 : 0) - latitude));
+        put('incline', degrees + ((degrees > latitude ? -90 : 0) - latitude));
     });
 
     setInterval(() => {
         const pad = n => (n < 10 ? '0' : '') + n;
-        const t = transitTime - new Date();
+        const t = eta - new Date();
         const hours = Math.floor(t / 24 / 60 / 60 / 1000);
         const minutes = 2;
         const seconds = 2;
