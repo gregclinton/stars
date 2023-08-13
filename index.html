@@ -19,7 +19,7 @@
 
 <script>
     const floor = Math.floor;
-    let targetTime = new Date();
+    let targetTime = false;
     let targetTilt = 0;
 
     function put(name, value) {
@@ -46,21 +46,25 @@
     }
 
     window.addEventListener('deviceorientation', e => {
-        const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
-        const diff = Math.abs(degrees - targetTilt);
-        const direction = degrees < targetTilt ? 'down' : 'up';
+        if (targetTilt) {
+            const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
+            const diff = Math.abs(degrees - targetTilt);
+            const direction = degrees < targetTilt ? 'down' : 'up';
 
-        put('tilt', diff > 10 ? '' : diff < 0.25 ? 'perfect' :
-            (direction + ' ' + (diff < 0.5 ? 'a smidge' : diff < 1 ? 'a half' : floor(diff))));
+            put('tilt', diff > 10 ? '' : diff < 0.25 ? 'perfect' :
+                (direction + ' ' + (diff < 0.5 ? 'a smidge' : diff < 1 ? 'a half' : floor(diff))));
+        }
     });
 
     setInterval(() => {
-        const pad = n => (n < 10 ? '0' : '') + n;
-        const t = floor(Math.abs(targetTime - new Date()) / 1000);
-        const seconds = t % 60;
-        const minutes = floor(t / 60) % 60;
-        const hours = floor(t / 24);
+        if (targetTime) {
+            const pad = n => (n < 10 ? '0' : '') + n;
+            const t = floor(Math.abs(targetTime - new Date()) / 1000);
+            const seconds = t % 60;
+            const minutes = floor(t / 60) % 60;
+            const hours = floor(t / 24);
 
-        put('time', hours + ':' + pad(minutes) + ':' + pad(seconds));
+            put('time', hours + ':' + pad(minutes) + ':' + pad(seconds));
+        }
     }, 1000);
 </script>
