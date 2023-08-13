@@ -8,6 +8,6 @@ function enableDevice() {
                 longitude = position.coords.longitude;
                 latitude = position.coords.latitude;
             })
-        });
+        }).wait();
     }
 }
