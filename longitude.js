@@ -1,8 +1,8 @@
 let longitude = -117;
-let latitude = 34;
+let latitude = 0;
 
 function enableDevice() {
-    if (!deviceEnabled && DeviceOrientationEvent.requestPermission) {
+    if (latitude == 0 && DeviceOrientationEvent.requestPermission) {
         DeviceOrientationEvent.requestPermission().then(() => {
             navigator.geolocation.getCurrentPosition(position => {
                 longitude = position.coords.longitude;
