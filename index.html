@@ -27,22 +27,23 @@
     }
 
     function explore(name, ra, dec) {
-        enableDevice();
-        const decParts = ra.split(' ');
-        const raParts = dec.split(':');
-        const [raPrecessed, decPrecessed] = precess(
-            1 * decParts[0] + decParts[1] / 60,
-            15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600)
-        );
+        getGeoLocation((latitude, longitude) => {
+            const decParts = ra.split(' ');
+            const raParts = dec.split(':');
+            const [raPrecessed, decPrecessed] = precess(
+                1 * decParts[0] + decParts[1] / 60,
+                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600)
+            );
 
-        targetTime = new Date();
+            targetTime = new Date();
 
-        while (Math.abs(localSiderealDegrees(targetTime, longitude) - raPrecessed) > 0.01) {
-            targetTime = new Date(targetTime.getTime() + 1000);
-        }
+            while (Math.abs(localSiderealDegrees(targetTime, longitude) - raPrecessed) > 0.01) {
+                targetTime = new Date(targetTime.getTime() + 1000);
+            }
 
-        targetTilt = decPrecessed + latitude;
-        put('name', name);
+            targetTilt = decPrecessed + latitude;
+            put('name', name);
+        });
     }
 
     window.addEventListener('deviceorientation', e => {
