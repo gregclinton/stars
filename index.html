@@ -5,7 +5,7 @@
 <div>
     <div id="name"></div>
     <div id="time"></div>
-    <div id="incline"></div>
+    <div id="tilt"></div>
     <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph</div>
 </div>
 
@@ -20,7 +20,7 @@
 <script>
     const floor = Math.floor;
     let eta = new Date();
-    let targetIncline = 0;
+    let targetTilt = 0;
 
     function put(name, value) {
         document.getElementById(name).innerHTML = value;
@@ -41,14 +41,17 @@
             eta = new Date(eta.getTime() + 1000);
         }
 
-        targetIncline = decPrecessed + latitude;
+        targettilt = decPrecessed + latitude;
         put('name', name);
     }
 
     window.addEventListener('deviceorientation', e => {
         const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
+        const diff = Math.abs(degrees - targetTilt);
+        const direction = degrees < targetTilt ? 'down' : 'up';
 
-        put('incline', degrees - targetIncline);
+        put('tilt', diff > 10 ? '' : diff < 0.25 ? 'perfect' :
+            (direction + ' ' + (diff < 0.5 ? 'a smidge' : diff < 1 ? 'a half' : floor(diff))));
     });
 
     setInterval(() => {
