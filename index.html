@@ -44,11 +44,11 @@
 
     function explore(name, ra, dec) {
         getGeoLocation((latitude, longitude) => {
-            const decParts = ra.split(' ');
-            const raParts = dec.split(' ');
+            const decParts = dec.split(' ');
+            const raParts = ra.split(' ');
             const [raPrecessed, decPrecessed] = precess(
-                1 * decParts[0] + decParts[1] / 60,
-                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600)
+                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
+                1 * decParts[0] + decParts[1] / 60
             );
 
             targetTime = new Date();
