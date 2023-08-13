@@ -6,9 +6,7 @@
     <div id="name"></div>
     <div id="time"></div>
     <div id="tilt"></div>
-    <div id="stars">
-        <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph</div>
-    </div>
+    <div id="stars"></div>
 </div>
 
 </body>
@@ -24,7 +22,7 @@
         const div = document.getElementById('stars');
 
         const stars = [
-            ['η Oph', '17:10:23', '-15 43']
+            ['η Oph', '17 10 23', '-15 43']
         ].forEach(star => {
             const node = document.createElement('div');
             node.innerHTML = star[0];
@@ -45,7 +43,7 @@
     function explore(name, ra, dec) {
         getGeoLocation((latitude, longitude) => {
             const decParts = ra.split(' ');
-            const raParts = dec.split(':');
+            const raParts = dec.split(' ');
             const [raPrecessed, decPrecessed] = precess(
                 1 * decParts[0] + decParts[1] / 60,
                 15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600)
