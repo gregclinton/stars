@@ -1,4 +1,4 @@
-function localSiderealDegrees(localTime) {
+function localSiderealDegrees(localTime, longitude) {
     // http://www.jgiesen.de/astro/astroJS/siderealClock/sidClock.js
 
     const jd = julianDay(localTime) - 2400000.5;

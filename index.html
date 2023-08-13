@@ -37,7 +37,7 @@
 
         targetTime = new Date();
 
-        while (Math.abs(localSiderealDegrees(targetTime) - raPrecessed) > 0.01) {
+        while (Math.abs(localSiderealDegrees(targetTime, longitude) - raPrecessed) > 0.01) {
             targetTime = new Date(targetTime.getTime() + 1000);
         }
 
