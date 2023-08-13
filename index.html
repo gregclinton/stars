@@ -19,7 +19,7 @@
 
 <script>
     const floor = Math.floor;
-    let eta = new Date();
+    let targetTime = new Date();
     let targetTilt = 0;
 
     function put(name, value) {
@@ -35,10 +35,10 @@
             15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600)
         );
 
-        eta = new Date();
+        targetTime = new Date();
 
-        while (Math.abs(localSiderealDegrees(eta) - raPrecessed) > 0.01) {
-            eta = new Date(eta.getTime() + 1000);
+        while (Math.abs(localSiderealDegrees(targetTime) - raPrecessed) > 0.01) {
+            targetTime = new Date(targetTime.getTime() + 1000);
         }
 
         targetTilt = decPrecessed + latitude;
@@ -56,7 +56,7 @@
 
     setInterval(() => {
         const pad = n => (n < 10 ? '0' : '') + n;
-        const t = floor(Math.abs(eta - new Date()) / 1000);
+        const t = floor(Math.abs(targetTime - new Date()) / 1000);
         const seconds = t % 60;
         const minutes = floor(t / 60) % 60;
         const hours = floor(t / 24);
