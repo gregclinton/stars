@@ -28,11 +28,12 @@
 
     function explore(name, ra, dec) {
         enableDevice();
-        const decParts = s.split(' ');
-        const dec = 1 * decParts[0] + decParts[1] / 60;
-        const raParts = s.split(':');
-        const ra = 15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600);
-        const [raPrecessed, decPrecessed] = precess(ra, dec);
+        const decParts = ra.split(' ');
+        const raParts = dec.split(':');
+        const [raPrecessed, decPrecessed] = precess(
+            1 * decParts[0] + decParts[1] / 60,
+            15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600)
+        );
 
         eta = new Date();
 
