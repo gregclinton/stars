@@ -1,6 +1,5 @@
-let longitude = 0;
-let latitude = 0;
-let deviceEnabled = false;
+let longitude = -117;
+let latitude = 34;
 
 function enableDevice() {
     if (!deviceEnabled && DeviceOrientationEvent.requestPermission) {
@@ -8,7 +7,6 @@ function enableDevice() {
             navigator.geolocation.getCurrentPosition(position => {
                 longitude = position.coords.longitude;
                 latitude = position.coords.latitude;
-                deviceEnabled = true;
             })
         });
     }

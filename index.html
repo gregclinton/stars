@@ -64,19 +64,13 @@
         put('dec', formatDec(decPrecessed));
     }
 
-    const interval = setInterval(() => {
-        if (deviceEnabled) {
-            window.addEventListener('deviceorientation', e => {
-                const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
+    window.addEventListener('deviceorientation', e => {
+        const degrees = e.beta + (Math.abs(e.beta) < 5 ? 90 : 0);
 
-                put('decScope', formatDec(degrees + ((degrees > longitude ? -90 : 0) - latitude)));
-            });
+        put('decScope', formatDec(degrees + ((degrees > longitude ? -90 : 0) - latitude)));
+    });
 
-            setInterval(() => {
-                put('sidereal', formatRa(localSiderealDegrees()));
-            }, 1000);
-
-            clearInterval(interval);
-        }
+    setInterval(() => {
+        put('sidereal', formatRa(localSiderealDegrees()));
     }, 1000);
 </script>
