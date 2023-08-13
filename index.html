@@ -23,7 +23,7 @@
     [
         ['η Oph', '17 10 23', '-15 43']
     ].forEach(star => {
-        const node = document.createElement('div');
+        const node = document.createElement('span');
         node.innerHTML = star[0];
         node.setAttribute('onclick', 'explore("' + star[0] + '","' + star[1] + '","' + star[2] + '")');
         stars.appendChild(node);
