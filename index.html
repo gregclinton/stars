@@ -40,8 +40,8 @@
 
     function formatRa(degrees) {
         const hours = floor(degrees / 15);
-        const minutes = floor(((degrees / 15) % 1) * 60);
-        const seconds = floor(((degrees / 60) % 1) * 3600);
+        const minutes = floor(degrees / 15 % 1 * 60);
+        const seconds = floor(degrees / 15 * 60 % 1 * 3600);
 
         return hours + ':' + pad(minutes) + ':' + pad(seconds);
     }
