@@ -1,7 +1,6 @@
 body
 {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: x-large;
     background-color: black;
     color: brown;
     margin: 5px;
@@ -9,5 +8,5 @@ body
 
 #stars
 {
-    margin-top: 100px;
+    margin-top: 300px;
 }
