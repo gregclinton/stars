@@ -20,6 +20,8 @@
 <script src="precess.js"></script>
 
 <script>
+    floor = Math.floor;
+
     function put(name, value) {
         document.getElementById(name).innerHTML = value;
     }
@@ -37,20 +39,20 @@
     const pad = n => (n < 10 ? '0' : '') + n;
 
     function formatRa(degrees) {
-        const wholePart = Math.floor(degrees / 15);
-        const minutes = 3; //degrees - wholePart
-        const seconds = 0;
+        const hours = floor(degrees / 15);
+        const minutes = floor((degrees % 1) * 60);
+        const seconds = floor(((degrees % 1) * 60) * 3600);
 
-        return wholePart + ':' + pad(minutes) + ':' + pad(seconds);
+        return hours + ':' + pad(minutes) + ':' + pad(seconds);
     }
 
     function formatDec(degrees) {
         const sign = degrees < 0 ? '-' : '';
         const absDegrees = Math.abs(degrees);
-        const wholePart = Math.floor(absDegrees);
-        const minutes = Math.floor(100 * (absDegrees - wholePart));
+        const wholePart = floor(absDegrees);
+        const minutes = floor(100 * (absDegrees - wholePart));
 
-        return sign + pad(wholePart) + ' ' + pad(15 * (minutes / 15));
+        return sign + pad(wholePart) + '.' + 15 * floor((0.1 + minutes / 15));
     }
 
     function explore(name, ra, dec) {
