@@ -16,5 +16,5 @@ function precess(ra, dec) {
     const C = sin(theta) * cos(radians(dec)) * cos(radians(ra) + zeta) + cos(theta) * sin(radians(dec));
 
     const degrees = radians => radians * 180 / Math.PI;
-    return [degrees(Math.atan2(A, B) + eta), dec > 88 ? dec : degrees(Math.asin(C))];
+    return [(degrees(Math.atan2(A, B) + eta) + 360) % 360, dec > 88 ? dec : degrees(Math.asin(C))];
 }

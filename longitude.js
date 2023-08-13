@@ -1,5 +1,5 @@
 let longitude = -117;
-let latitude = 0;
+let latitude = 34;
 
 function enableDevice() {
     if (latitude == 0 && DeviceOrientationEvent.requestPermission) {
