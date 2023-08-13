@@ -6,7 +6,9 @@
     <div id="name"></div>
     <div id="time"></div>
     <div id="tilt"></div>
-    <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph</div>
+    <div id="stars">
+        <div onclick="explore('η Oph', '17:10:23', '-15 43')">η Oph</div>
+    </div>
 </div>
 
 </body>
@@ -18,6 +20,14 @@
 <script src="precess.js"></script>
 
 <script>
+    function addStars() {
+        const node = document.createElement('div');
+        node.innerHTML = 'abc';
+        node.setAttribute('onclick', 'alert("xxx")')
+        document.getElementById('stars').appendChild(node);
+    }
+    addStars();
+
     const floor = Math.floor;
     let targetTime = false;
     let targetTilt = false;
