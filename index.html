@@ -37,7 +37,7 @@
 
         eta = new Date();
 
-        while (Math.abs(localSiderealDegrees(eta) - raPrecessed) > 1) {
+        while (Math.abs(localSiderealDegrees(eta) - raPrecessed) > 0.01) {
             eta = new Date(eta.getTime() + 1000);
         }
 
