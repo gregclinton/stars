@@ -1,13 +1,13 @@
 // https://github.com/JohannesBuchner/libnova/blob/master/src/precession.c
 
-const jd2000 = 2451545;
-const t = (julianDay() - jd2000) / 36525.0 / 3600;
-const radians = degrees => degrees * Math.PI / 180;
-const zeta = radians(2306.2181 * t + 0.30188 * t ** 2 + 0.017998 * t ** 3);
-const eta = radians(2306.2181 * t + 1.09468 * t ** 2 + 0.041833 * t ** 3);
-const theta = radians(2004.3109 * t - 0.42665 * t ** 2 - 0.041833 * t ** 3);
-
 function precess(ra, dec) {
+    const jd2000 = 2451545;
+    const t = (julianDay(new Date()) - jd2000) / 36525.0 / 3600;
+    const radians = degrees => degrees * Math.PI / 180;
+    const zeta = radians(2306.2181 * t + 0.30188 * t ** 2 + 0.017998 * t ** 3);
+    const eta = radians(2306.2181 * t + 1.09468 * t ** 2 + 0.041833 * t ** 3);
+    const theta = radians(2004.3109 * t - 0.42665 * t ** 2 - 0.041833 * t ** 3);
+
     const cos = Math.cos;
     const sin = Math.sin;
 
