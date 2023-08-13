@@ -79,7 +79,7 @@
             const t = floor(Math.abs(targetTime - new Date()) / 1000);
             const seconds = t % 60;
             const minutes = floor(t / 60) % 60;
-            const hours = floor(t / 24);
+            const hours = floor(t / 60 / 60);
 
             put('time', hours + ':' + pad(minutes) + ':' + pad(seconds));
         }
