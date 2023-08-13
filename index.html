@@ -28,6 +28,10 @@
         node.innerHTML = star[0];
         node.setAttribute('onclick', 'explore("' + star[0] + '","' + star[1] + '","' + star[2] + '")');
         stars.appendChild(node);
+
+        const bar = document.createElement('span');
+        bar.innerHTML = ' | ';
+        stars.appendChild(bar);
     });
 
     const floor = Math.floor;
