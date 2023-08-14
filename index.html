@@ -52,12 +52,12 @@
                 1 * decParts[0] + decParts[1] / 60
             );
 
-            targetTime = new Date();
+            // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
+            const t = new Date();
+            const lst = localSiderealDegrees(t, longitude);
+            const diff = (raPrecessed + (raPrecessed > lst ? 0 : 360)) - lst;
 
-            while (Math.abs(localSiderealDegrees(targetTime, longitude) - raPrecessed) > 0.01) {
-                targetTime = new Date(targetTime.getTime() + 1000);
-            }
-
+            targetTime = new Date(t.getTime() + 240000 * diff / 1.0027379);
             targetTilt = 90 - Math.abs(decPrecessed - latitude);
 
             put('name', name);
