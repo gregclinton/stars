@@ -7,9 +7,9 @@
         <span id="name"></span>
         <span id="time"></span>
     </div>
-    <svg height="800" width="200">
-        <circle cx="100" cy="400" r="50" fill="#111" />
-        <circle cx="100" cy="400" r="1.5" fill="white" id="tilt"/>
+    <svg height="1600" width="200">
+        <circle cx="100" cy="800" r="50" fill="#111" />
+        <circle cx="100" cy="800" r="1.5" fill="white" id="tilt"/>
     </svg>
     <div id="stars"></div>
 </div>
@@ -72,7 +72,7 @@
 
     window.addEventListener('deviceorientation', e => {
         if (targetTilt) {
-            document.getElementById('tilt').setAttribute('cy', 400 + (e.beta - targetTilt) * 200);
+            document.getElementById('tilt').setAttribute('cy', 800 + (targetTilt - e.beta) * 100);
         }
     });
 
