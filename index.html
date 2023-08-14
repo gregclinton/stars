@@ -72,7 +72,7 @@
 
     window.addEventListener('deviceorientation', e => {
         if (targetTilt) {
-            document.getElementById('tilt').setAttribute('y', 400 + (e.beta - targetTilt) * 200);
+            document.getElementById('tilt').setAttribute('cy', 400 + (e.beta - targetTilt) * 200);
         }
     });
 
