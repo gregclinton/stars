@@ -57,7 +57,7 @@
                 targetTime = new Date(targetTime.getTime() + 1000);
             }
 
-            targetTilt = 90 + (decPrecessed - latitude) * (decPrecessed <= latitude ? 1 : -1);
+            targetTilt = 90 - Math.abs(decPrecessed - latitude);
 
             put('name', name);
             put('time', '');
