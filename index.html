@@ -23,15 +23,16 @@
     [
         ['η Oph', '17 10 23', '-15 43'],
         ['π Her', '17 15 03', '36 49'],
-    ].forEach(star => {
+    ].forEach((star, i) => {
+        if (i > 0) {
+            const bar = document.createElement('span');
+            bar.innerHTML = ' | ';
+            stars.appendChild(bar);
+        }
         const node = document.createElement('span');
         node.innerHTML = star[0];
         node.setAttribute('onclick', 'explore("' + star[0] + '","' + star[1] + '","' + star[2] + '")');
         stars.appendChild(node);
-
-        const bar = document.createElement('span');
-        bar.innerHTML = ' | ';
-        stars.appendChild(bar);
     });
 
     const floor = Math.floor;
