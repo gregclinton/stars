@@ -3,9 +3,14 @@
 -->
 
 <div>
-    <div id="name"></div>
-    <div id="time"></div>
-    <div id="tilt"></div>
+    <div>
+        <span id="name"></span>
+        <span id="time"></span>
+    </div>
+    <svg height="800" width="200">
+        <circle cx="100" cy="400" r="50" fill="#111" />
+        <circle cx="100" cy="400" r="1.5" fill="white" id="tilt"/>
+    </svg>
     <div id="stars"></div>
 </div>
 
@@ -62,18 +67,12 @@
 
             put('name', name);
             put('time', '');
-            put('tilt', '');
         });
     }
 
     window.addEventListener('deviceorientation', e => {
         if (targetTilt) {
-            const tilt = e.beta;
-            const diff = Math.abs(tilt - targetTilt);
-            const direction = tilt < targetTilt ? 'down' : 'up';
-
-            put('tilt', diff > 10 ? '' : diff < 0.25 ? 'perfect' :
-                (direction + ' ' + (diff < 0.5 ? 'a smidge' : diff < 1 ? 'a half' : floor(diff))));
+            document.getElementById('tilt').setAttribute('y', 400 + (e.beta - targetTilt) * 200);
         }
     });
 
@@ -86,15 +85,6 @@
             const hours = floor(t / 60 / 60);
 
             put('time', hours + ':' + pad(minutes) + ':' + pad(seconds));
-            {
-                const t = floor(Math.abs(targetTime2 - new Date()) / 1000);
-            const seconds = t % 60;
-            const minutes = floor(t / 60) % 60;
-            const hours = floor(t / 60 / 60);
-
-            put('time2', hours + ':' + pad(minutes) + ':' + pad(seconds));
-
-            }
         }
     }, 1000);
 </script>
