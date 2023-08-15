@@ -70,7 +70,7 @@
     window.addEventListener('deviceorientation', e => {
         if (targetTilt) {
             const tilt = Math.abs(targetTilt - e.beta);
-            put('tilt', tilt > 1 ? floor(tilt) : tilt > 0.5 ? 0.5 : tilt > 0.25 ? 0.25 : 0);
+            put('tilt', tilt > 1 ? floor(tilt) : tilt < 0.25 ? 0 : 1);
         }
     });
 
