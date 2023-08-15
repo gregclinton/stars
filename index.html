@@ -22,22 +22,42 @@
 <script>
     const stars = document.getElementById('stars');
 
-    [
-        ['η Oph', '17 10 23', '-15 43'],
-        ['π Her', '17 15 03', '36 49'],
-    ].forEach((star, i) => {
-        if (i > 0) {
-            const bar = document.createElement('span');
-            bar.innerHTML = ' | ';
-            stars.appendChild(bar);
-        }
-        const node = document.createElement('span');
-        node.innerHTML = star[0];
-        node.setAttribute('onclick', 'explore("' + star[0] + '","' + star[1] + '","' + star[2] + '")');
-        stars.appendChild(node);
+    getGeoLocation((latitude, longitude) => {
+        // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
+        const t = new Date();
+        const lst = localSiderealDegrees(t, longitude);
+
+        [
+            ['η Oph', '17 10 23', '-15 43'],
+            ['π Her', '17 15 03', '36 49'],
+        ].forEach(star => {
+            const name = star[0];
+            const raParts = star[1].split(' ');
+            const decParts = star[2].split(' ');
+            const [ra, dec] = precess(
+                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
+                1 * decParts[0] + decParts[1] / 60
+            );
+
+            const diff = ra + (lst > ra ? 360 : 0) - lst;
+            const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
+            const tilt = 90 - Math.abs(dec - latitude);
+
+            const div = document.createElement('div');
+            div.setAttribute('onclick', 'explore("' + name + '",' + time.getTime() + ',' + tilt + ')');
+
+            const eTime = document.createElement('span');
+            eTime.innerHTML = time.toTimeString();
+
+            const eName = document.createElement('span');
+            eName.innerHTML = name;
+
+            div.appendChild(eTime);
+            div.appendChild(eName);
+            stars.appendChild(div);
+        });
     });
 
-    const floor = Math.floor;
     let targetTime = false;
     let targetTilt = false;
 
@@ -45,27 +65,15 @@
         document.getElementById(name).innerHTML = value;
     }
 
-    function explore(name, ra, dec) {
-        getGeoLocation((latitude, longitude) => {
-            const decParts = dec.split(' ');
-            const raParts = ra.split(' ');
-            const [raPrecessed, decPrecessed] = precess(
-                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
-                1 * decParts[0] + decParts[1] / 60
-            );
+    function explore(name, time, tilt) {
+        targetTime = new Date(time);
+        targetTilt = tilt;
 
-            // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
-            const t = new Date();
-            const lst = localSiderealDegrees(t, longitude);
-            const diff = raPrecessed + (lst > raPrecessed ? 360 : 0) - lst;
-
-            targetTime = new Date(t.getTime() + 240000 * diff / 1.0027379);
-            targetTilt = 90 - Math.abs(decPrecessed - latitude);
-
-            put('name', name);
-            put('time', '');
-        });
+        put('name', name);
+        put('time', '');
     }
+
+    const floor = Math.floor;
 
     window.addEventListener('deviceorientation', e => {
         if (targetTilt) {
