@@ -19,7 +19,6 @@ function allow() {
     document.getElementById('allow').remove();
 
     getGeoLocation((latitude, longitude) => {
-        // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
         const t = new Date();
         const today = t.getDate();
         const lst = localSiderealDegrees(t, longitude);
@@ -57,6 +56,8 @@ function allow() {
 
         stars.forEach(star => {
             const [ra, dec] = precess(star.ra, star.dec);
+
+            // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
             const diff = ra + (lst > ra ? 360 : 0) - lst;
             const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
             const hour = time.getHours();
