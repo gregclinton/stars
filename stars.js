@@ -7,7 +7,7 @@ let firstTime = true;
 
 function run() {
     if (!firstTime) {
-        return; 
+        return;
     }
     firstTime = false;
 
@@ -34,15 +34,19 @@ function run() {
             const params = ['"' + name + '"', time.getTime(), tilt];
             tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
 
-            const tdName = document.createElement('td');
-            tdName.innerHTML = name;
+            function addTd(value) {
+                const td = document.createElement('td');
+                td.innerHTML = value;
+                tr.appendChild(td);
+            }
 
-            const tdTime = document.createElement('td');
+            addTd(name);
+            addTd(dec > latitude ? 'N' : 'S');
+            addTd(Math.floor(tilt));
+
             const pad = n => (n < 10 ? '0' : '') + n;
-            tdTime.innerHTML = [time.getHours() % 12, pad(time.getMinutes())].join(':');
+            addTd([time.getHours() % 12, pad(time.getMinutes())].join(':'));
 
-            tr.appendChild(tdName);
-            tr.appendChild(tdTime);
             document.getElementById('stars').appendChild(tr);
         });
     });
