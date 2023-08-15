@@ -5,7 +5,7 @@
     from hipparcos.main
     where
         dec > -50 and
-        hpmag < 4
+        hpmag < 3
 */
 const hipparcosData = `
 105199,319.64408982,62.58545529,2.5141
