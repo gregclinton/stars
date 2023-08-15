@@ -15,8 +15,6 @@ function run() {
         // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
         const t = new Date();
         const lst = localSiderealDegrees(t, longitude);
-        const startTime = new Date();
-        const endTime = new Date();
         const stars = [];
 
         starData.forEach(line => {
@@ -41,7 +39,9 @@ function run() {
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
 
         stars.forEach(star => {
-            if (star.time > startTime) {
+            const hour = star.time.getHours();
+
+            if (hour > 16 && hour < 23 && star.time.getDate() === new Date().getDate()) {
                 const tr = document.createElement('tr');
                 const params = ['"' + star.name + '"', star.time.getTime(), star.tilt];
                 tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
@@ -58,7 +58,7 @@ function run() {
 
                 const pad = n => (n < 10 ? '0' : '') + n;
                 const t = star.time;
-                addTd([t.getHours() % 12, pad(t.getMinutes())].join(':'));
+                addTd([hour % 12, pad(t.getMinutes())].join(':'));
 
                 document.getElementById('stars').appendChild(tr);
             }
