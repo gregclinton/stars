@@ -14,9 +14,9 @@ function run() {
     getGeoLocation((latitude, longitude) => {
         // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
         const t = new Date();
+        const today = t.getDate();
         const lst = localSiderealDegrees(t, longitude);
         const stars = [];
-        const today = new Date().getDate();
 
         starData.forEach(line => {
             const parts = line.split(',');
