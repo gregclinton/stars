@@ -1,6 +1,6 @@
 const starData = `
 η Oph,17 10 23,-15 43
-pi Her,17 15 03,36 49
+π Her,17 15 03,36 49
 `.trim().split('\n');
 
 let firstTime = true;
@@ -31,7 +31,8 @@ function run() {
             const tilt = 90 - Math.abs(dec - latitude);
 
             const tr = document.createElement('tr');
-            tr.setAttribute('onclick', 'explore("' + name + '",' + time.getTime() + ',' + tilt + ')');
+            const params = ['"' + name + '"', time.getTime(), tilt];
+            tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
 
             const tdName = document.createElement('td');
             tdName.innerHTML = name;
