@@ -1,4 +1,4 @@
-const starData = `
+let starData = `
 η Oph,17 10 23,-15 43
 π Her,17 15 03,36 49
 `.trim().split('\n');
@@ -17,32 +17,39 @@ function allow() {
             const parts = line.split(',');
             const raParts = parts[1].split(' ');
             const decParts = parts[2].split(' ');
-            const [ra, dec] = precess(
-                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
-                1 * decParts[0] + decParts[1] / 60
-            );
 
-            const diff = ra + (lst > ra ? 360 : 0) - lst;
-            const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
+            stars.push({
+                name: parts[0].trim(),
+                ra: 15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
+                dec: 1 * decParts[0] + decParts[1] / 60,
+            });
+        });
 
-            if (time.getDate() === today) {
-                stars.push({
-                    name: parts[0].trim(),
-                    time: time,
-                    tilt: 90 - Math.abs(dec - latitude),
-                    dec: dec,
-                });
-            }
+        messierData.forEach(line => {
+            const parts = line.split('\t');
+            const raParts = parts[6].split(' ');
+            const decParts = parts[7].split(' ');
+            const chomp = s => s.substr(0, s.length - 1);
+
+            stars.push({
+                name: parts[0].trim(),
+                ra: 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
+                dec: 1 * chomp(decParts[0]) + chomp(decParts[1]) / 60,
+            });
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
 
         stars.forEach(star => {
-            const hour = star.time.getHours();
+            const [ra, dec] = precess(star.ra, star.dec);
+            const diff = ra + (lst > ra ? 360 : 0) - lst;
+            const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
+            const hour = time.getHours();
+            const tilt = 90 - Math.abs(dec - latitude);
 
-            if (hour > 16 && hour < 23) {
+            if (hour > 16 && hour < 23 && time.getDate() === today) {
                 const tr = document.createElement('tr');
-                const params = ['"' + star.name + '"', star.time.getTime(), star.tilt];
+                const params = ['"' + star.name + '"', time.getTime(), tilt];
                 tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
 
                 function addTd(value) {
@@ -52,11 +59,11 @@ function allow() {
                 }
 
                 addTd(star.name);
-                addTd(star.dec > latitude ? 'N' : 'S');
-                addTd(Math.floor(star.tilt));
+                addTd(dec > latitude ? 'N' : 'S');
+                addTd(Math.floor(tilt));
 
                 const pad = n => (n < 10 ? '0' : '') + n;
-                const t = star.time;
+                const t = time;
                 addTd([hour % 12, pad(t.getMinutes())].join(':'));
 
                 document.getElementById('stars').appendChild(tr);
