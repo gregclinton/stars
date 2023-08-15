@@ -4,15 +4,15 @@
 
 <meta name="viewport" content="user-scalable=no,width=device-width" />
 
-<div>
-    <div id="name"></div>
-    <div  id="time"></div>
-    <div id="tilt"></div>
-    <table>
-        <tbody id="stars"/>
-    </table>
-</div>
-
+<body onclick="run()">
+    <div>
+        <div id="name"></div>
+        <div  id="time"></div>
+        <div id="tilt"></div>
+        <table>
+            <tbody id="stars"/>
+        </table>
+    </div>
 </body>
 
 <link href="main.css" rel="stylesheet"/>
@@ -20,47 +20,9 @@
 <script src="location.js"></script>
 <script src="sidereal.js"></script>
 <script src="precess.js"></script>
+<script src="stars.js"></script>
 
 <script>
-    const stars = document.getElementById('stars');
-
-    getGeoLocation((latitude, longitude) => {
-        // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
-        const t = new Date();
-        const lst = localSiderealDegrees(t, longitude);
-
-        [
-            ['η Oph', '17 10 23', '-15 43'],
-            ['π Her', '17 15 03', '36 49'],
-        ].forEach(star => {
-            const name = star[0];
-            const raParts = star[1].split(' ');
-            const decParts = star[2].split(' ');
-            const [ra, dec] = precess(
-                15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
-                1 * decParts[0] + decParts[1] / 60
-            );
-
-            const diff = ra + (lst > ra ? 360 : 0) - lst;
-            const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
-            const tilt = 90 - Math.abs(dec - latitude);
-
-            const tr = document.createElement('tr');
-            tr.setAttribute('onclick', 'explore("' + name + '",' + time.getTime() + ',' + tilt + ')');
-
-            const tdName = document.createElement('td');
-            tdName.innerHTML = name;
-
-            const tdTime = document.createElement('td');
-            const pad = n => (n < 10 ? '0' : '') + n;
-            tdTime.innerHTML = [time.getHours() % 12, pad(time.getMinutes())].join(':');
-
-            tr.appendChild(tdName);
-            tr.appendChild(tdTime);
-            stars.appendChild(tr);
-        });
-    });
-
     let targetTime = false;
     let targetTilt = false;
 
