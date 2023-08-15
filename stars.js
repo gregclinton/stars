@@ -1,8 +1,13 @@
+const starData = `
+η Oph,17 10 23,-15 43
+pi Her,17 15 03,36 49
+`.trim().split('\n');
+
 let firstTime = true;
 
 function run() {
     if (!firstTime) {
-        return;
+        return; 
     }
     firstTime = false;
 
@@ -11,11 +16,9 @@ function run() {
         const t = new Date();
         const lst = localSiderealDegrees(t, longitude);
 
-        [
-            ['eta Oph', '17 10 23', '-15 43'],
-            ['pi Her', '17 15 03', '36 49'],
-        ].forEach(star => {
-            const name = star[0];
+        starData.forEach(line => {
+            const star = line.split(',');
+            const name = star[0].trim();
             const raParts = star[1].split(' ');
             const decParts = star[2].split(' ');
             const [ra, dec] = precess(
