@@ -8,7 +8,9 @@
     <div id="name"></div>
     <div  id="time"></div>
     <div id="tilt"></div>
-    <div id="stars"></div>
+    <table>
+        <tbody id="stars"/>
+    </table>
 </div>
 
 </body>
@@ -43,18 +45,19 @@
             const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
             const tilt = 90 - Math.abs(dec - latitude);
 
-            const div = document.createElement('div');
-            div.setAttribute('onclick', 'explore("' + name + '",' + time.getTime() + ',' + tilt + ')');
+            const tr = document.createElement('tr');
+            tr.setAttribute('onclick', 'explore("' + name + '",' + time.getTime() + ',' + tilt + ')');
 
-            const eTime = document.createElement('span');
-            eTime.innerHTML = time.toTimeString();
+            const tdName = document.createElement('td');
+            tdName.innerHTML = name;
 
-            const eName = document.createElement('span');
-            eName.innerHTML = name;
+            const tdTime = document.createElement('td');
+            const pad = n => (n < 10 ? '0' : '') + n;
+            tdTime.innerHTML = [time.getHours() % 12, pad(time.getMinutes())].join(':');
 
-            div.appendChild(eTime);
-            div.appendChild(eName);
-            stars.appendChild(div);
+            tr.appendChild(tdName);
+            tr.appendChild(tdTime);
+            stars.appendChild(tr);
         });
     });
 
@@ -90,7 +93,7 @@
             const minutes = floor(t / 60) % 60;
             const hours = floor(t / 60 / 60);
 
-            put('time', hours + ':' + pad(minutes) + ':' + pad(seconds));
+            put('time', [hours, pad(minutes), pad(seconds)].join(':'));
         }
     }, 1000);
 </script>
