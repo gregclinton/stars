@@ -3,6 +3,18 @@ let starData = `
 π Her,17 15 03,36 49
 `.trim().split('\n');
 
+/*
+    https://dc.zah.uni-heidelberg.de/__system__/adql/query/form
+
+    select ra, dec, hpmag
+    from hipparcos.main
+    where
+        dec > -50 and
+        ra > 16 * 15 and
+        ra < 18 * 15 and
+        hpmag < 8
+*/
+
 function allow() {
     document.getElementById('allow').remove();
 
