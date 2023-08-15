@@ -30,15 +30,18 @@ function allow() {
             const raParts = parts[6].split(' ');
             const decParts = parts[7].split(' ');
             const chomp = s => s.substr(0, s.length - 1);
+            const mag = parts[3] * 1;
 
-            stars.push({
-                name: parts[0].trim(),
-                ra: 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
-                dec: 1 * chomp(decParts[0]) + chomp(decParts[1]) / 60,
-            });
+            if (mag < 7) {
+                stars.push({
+                    name: parts[0].trim(),
+                    ra: 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
+                    dec: 1 * decParts[0].substr(0, 3) + decParts[1].substr(0, 2) / 60,
+                });
+            }
         });
 
-        stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
+        stars.sort((a, b) => a.ra < b.ra ? -1 : a.ra > b.ra ? 1 : 0);
 
         stars.forEach(star => {
             const [ra, dec] = precess(star.ra, star.dec);
