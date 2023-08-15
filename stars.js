@@ -40,10 +40,11 @@ function allow() {
             const parts = line.split('\t');
             const raParts = parts[6].split(' ');
             const decParts = parts[7].split(' ');
-            const chomp = s => s.substr(0, s.length - 1);
             const mag = parts[3] * 1;
 
             if (mag < 7) {
+                const chomp = s => s.substr(0, s.length - 1);
+
                 stars.push({
                     name: parts[0].trim(),
                     ra: 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
