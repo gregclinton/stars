@@ -5,6 +5,10 @@ const wikipediaData = `
 ζ Oph	ζ	13	28		149757	81377	16h 37m 09.53s	−10° 34′ 01.7″	2.54	−3.20	458	O9.5V	Han; γ Cas variable; Be star
 δ Oph	δ	1	7		146051	79593	16h 14m 20.77s	−03° 41′ 38.3″	2.73	−0.86	170	M1III	Yed Prior, Yad, Jed Prior
 β Oph	β	60	168		161096	86742	17h 43m 28.38s	+04° 34′ 00.9″	2.76	0.76	82	K2III	Cebalrai, Celbalrai, Celb-al-Rai, Kelb Alrai, Cheleb
+β Her	β	27			148856	80816	16h 30m 13.26s	+21° 29′ 22.7″	2.78	−0.50	148	G8III	Kornephoros, Korneforos, Rutilicus
+ζ Her	ζ	40			150680	81693	16h 41m 17.48s	+31° 36′ 06.8″	2.81	2.64	35	F9IV	Rutilicus
+δ Her	δ	65			156164	84379	17h 15m 01.92s	+24° 50′ 22.5″	3.12	1.21	78	A3IVv SB	Sarin, Menkib al Jathi al Aisr, Humerus Sinister Ingeniculi[1]
+π Her	π	67			156283	84380	17h 15m 02.85s	+36° 48′ 33.0″	3.16	−2.10	367	K3IIvar	
 `.trim().split('\n');
 
 /*
