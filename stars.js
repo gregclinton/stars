@@ -16,6 +16,7 @@ function run() {
         const t = new Date();
         const lst = localSiderealDegrees(t, longitude);
         const stars = [];
+        const today = new Date().getDate();
 
         starData.forEach(line => {
             const parts = line.split(',');
@@ -27,13 +28,16 @@ function run() {
             );
 
             const diff = ra + (lst > ra ? 360 : 0) - lst;
+            const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
 
-            stars.push({
-                name: parts[0].trim(),
-                time: new Date(t.getTime() + 240000 * diff / 1.0027379),
-                tilt: 90 - Math.abs(dec - latitude),
-                dec: dec,
-            });
+            if (time.getDate() === today) {
+                stars.push({
+                    name: parts[0].trim(),
+                    time: time,
+                    tilt: 90 - Math.abs(dec - latitude),
+                    dec: dec,
+                });
+            }
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
@@ -41,7 +45,7 @@ function run() {
         stars.forEach(star => {
             const hour = star.time.getHours();
 
-            if (hour > 16 && hour < 23 && star.time.getDate() === new Date().getDate()) {
+            if (hour > 16 && hour < 23) {
                 const tr = document.createElement('tr');
                 const params = ['"' + star.name + '"', star.time.getTime(), star.tilt];
                 tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
