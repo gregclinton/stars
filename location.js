@@ -1,4 +1,5 @@
 function getGeoLocation(fn) {
+    fn(34, -117); return;
     if (DeviceOrientationEvent.requestPermission) {
         DeviceOrientationEvent.requestPermission().then(() => {
             navigator.geolocation.getCurrentPosition(position => {
