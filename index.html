@@ -5,14 +5,9 @@
 <meta name="viewport" content="user-scalable=no,width=device-width" />
 
 <div>
-    <div>
-        <span id="name"></span>
-        <span id="time"></span>
-    </div>
-    <svg height="400" width="200">
-        <circle cx="100" cy="200" r="25" fill="#111" />
-        <circle cx="100" cy="200" r="1.5" fill="white" id="tilt"/>
-    </svg>
+    <span id="name"></span>
+    <span id="time"></span>
+    <span id="tilt"></span>
     <div id="stars"></div>
 </div>
 
@@ -74,7 +69,8 @@
 
     window.addEventListener('deviceorientation', e => {
         if (targetTilt) {
-            document.getElementById('tilt').setAttribute('cy', 200 + (targetTilt - e.beta) * 100);
+            const tilt = Math.abs(targetTilt - e.beta);
+            put('tilt', tilt > 1 ? floor(tilt) : tilt > 0.5 ? 0.5 : tilt > 0.25 ? 0.25 : 0);
         }
     });
 
