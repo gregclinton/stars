@@ -3,13 +3,8 @@ const starData = `
 π Her,17 15 03,36 49
 `.trim().split('\n');
 
-let firstTime = true;
-
-function run() {
-    if (!firstTime) {
-        return;
-    }
-    firstTime = false;
+function allow() {
+    document.getElementById('allow').remove();
 
     getGeoLocation((latitude, longitude) => {
         // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
@@ -68,4 +63,6 @@ function run() {
             }
         });
     });
+
+    starData = 0;
 };
