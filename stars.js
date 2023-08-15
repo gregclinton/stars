@@ -15,8 +15,9 @@ function run() {
         // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
         const t = new Date();
         const lst = localSiderealDegrees(t, longitude);
-
-        starData.map(line => {
+        const startTime = new Date();
+        const endTime = new Date();
+        const stars = starData.map(line => {
             const parts = line.split(',');
             const raParts = parts[1].split(' ');
             const decParts = parts[2].split(' ');
@@ -33,26 +34,32 @@ function run() {
                 tilt: 90 - Math.abs(dec - latitude),
                 dec: dec,
             };
-        }).forEach(star => {
-            const tr = document.createElement('tr');
-            const params = ['"' + star.name + '"', star.time.getTime(), star.tilt];
-            tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
+        });
 
-            function addTd(value) {
-                const td = document.createElement('td');
-                td.innerHTML = value;
-                tr.appendChild(td);
+        stars.sort((a, b) => a.time.getTime() < b.time.getTime());
+
+        stars.forEach(star => {
+            if (star.time > startTime) {
+                const tr = document.createElement('tr');
+                const params = ['"' + star.name + '"', star.time.getTime(), star.tilt];
+                tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
+
+                function addTd(value) {
+                    const td = document.createElement('td');
+                    td.innerHTML = value;
+                    tr.appendChild(td);
+                }
+
+                addTd(star.name);
+                addTd(star.dec > latitude ? 'N' : 'S');
+                addTd(Math.floor(star.tilt));
+
+                const pad = n => (n < 10 ? '0' : '') + n;
+                const t = star.time;
+                addTd([t.getHours() % 12, pad(t.getMinutes())].join(':'));
+
+                document.getElementById('stars').appendChild(tr);
             }
-
-            addTd(star.name);
-            addTd(star.dec > latitude ? 'N' : 'S');
-            addTd(Math.floor(star.tilt));
-
-            const pad = n => (n < 10 ? '0' : '') + n;
-            const t = star.time;
-            addTd([t.getHours() % 12, pad(t.getMinutes())].join(':'));
-
-            document.getElementById('stars').appendChild(tr);
         });
     });
 };
