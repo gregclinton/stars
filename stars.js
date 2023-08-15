@@ -17,7 +17,9 @@ function run() {
         const lst = localSiderealDegrees(t, longitude);
         const startTime = new Date();
         const endTime = new Date();
-        const stars = starData.map(line => {
+        const stars = [];
+
+        starData.forEach(line => {
             const parts = line.split(',');
             const raParts = parts[1].split(' ');
             const decParts = parts[2].split(' ');
@@ -28,15 +30,15 @@ function run() {
 
             const diff = ra + (lst > ra ? 360 : 0) - lst;
 
-            return {
+            stars.push({
                 name: parts[0].trim(),
                 time: new Date(t.getTime() + 240000 * diff / 1.0027379),
                 tilt: 90 - Math.abs(dec - latitude),
                 dec: dec,
-            };
+            });
         });
 
-        stars.sort((a, b) => a.time.getTime() < b.time.getTime());
+        stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
 
         stars.forEach(star => {
             if (star.time > startTime) {
