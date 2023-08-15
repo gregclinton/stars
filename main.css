@@ -1,8 +1,14 @@
 body
 {
     font-family: sans-serif;
-    font-size: 48;
+    font-size: 64;
     font-weight: bold;
     background-color: black;
     color: brown;
+}
+
+#stars
+{
+    font-size: 22;
+    margin-top: 30;
 }
