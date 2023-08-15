@@ -9,6 +9,11 @@ body
 
 #stars
 {
-    font-size: 22;
+    font-size: 36;
     margin-top: 30;
+}
+
+#stars td
+{
+    padding-left: 20px;
 }
