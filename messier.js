@@ -1,5 +1,5 @@
 // http://astropixels.com/messier/messiercat.html
-messierData = `
+const messierData = `
 M1	1952	Sn	8.4	6x4	6300	5h 34.5m	+22° 01′	Tau	winter	Crab Nebula
 M2	7089	Gc	6.5	12.9	37900	21h 33.5m	-00° 49′	Aqr	autumn	
 M3	5272	Gc	6.2	16.2	33900	13h 42.2m	+28° 23′	CVn	spring	
