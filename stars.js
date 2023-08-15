@@ -16,22 +16,26 @@ function run() {
         const t = new Date();
         const lst = localSiderealDegrees(t, longitude);
 
-        starData.forEach(line => {
-            const star = line.split(',');
-            const name = star[0].trim();
-            const raParts = star[1].split(' ');
-            const decParts = star[2].split(' ');
+        starData.map(line => {
+            const parts = line.split(',');
+            const raParts = parts[1].split(' ');
+            const decParts = parts[2].split(' ');
             const [ra, dec] = precess(
                 15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
                 1 * decParts[0] + decParts[1] / 60
             );
 
             const diff = ra + (lst > ra ? 360 : 0) - lst;
-            const time = new Date(t.getTime() + 240000 * diff / 1.0027379);
-            const tilt = 90 - Math.abs(dec - latitude);
 
+            return {
+                name: parts[0].trim(),
+                time: new Date(t.getTime() + 240000 * diff / 1.0027379),
+                tilt: 90 - Math.abs(dec - latitude),
+                dec: dec,
+            };
+        }).forEach(star => {
             const tr = document.createElement('tr');
-            const params = ['"' + name + '"', time.getTime(), tilt];
+            const params = ['"' + star.name + '"', star.time.getTime(), star.tilt];
             tr.setAttribute('onclick', 'explore(' + params.join(',') + ')');
 
             function addTd(value) {
@@ -40,12 +44,13 @@ function run() {
                 tr.appendChild(td);
             }
 
-            addTd(name);
-            addTd(dec > latitude ? 'N' : 'S');
-            addTd(Math.floor(tilt));
+            addTd(star.name);
+            addTd(star.dec > latitude ? 'N' : 'S');
+            addTd(Math.floor(star.tilt));
 
             const pad = n => (n < 10 ? '0' : '') + n;
-            addTd([time.getHours() % 12, pad(time.getMinutes())].join(':'));
+            const t = star.time;
+            addTd([t.getHours() % 12, pad(t.getMinutes())].join(':'));
 
             document.getElementById('stars').appendChild(tr);
         });
