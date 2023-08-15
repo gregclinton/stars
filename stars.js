@@ -1,20 +1,3 @@
-const starData = `
-η Oph,17 10 23,-15 43
-π Her,17 15 03,36 49
-`.trim().split('\n');
-
-/*
-    https://dc.zah.uni-heidelberg.de/__system__/adql/query/form
-
-    select ra, dec, hpmag
-    from hipparcos.main
-    where
-        dec > -50 and
-        ra > 16 * 15 and
-        ra < 18 * 15 and
-        hpmag < 8
-*/
-
 function allow() {
     document.getElementById('allow').remove();
 
@@ -24,15 +7,13 @@ function allow() {
         const lst = localSiderealDegrees(t, longitude);
         const stars = [];
 
-        starData.forEach(line => {
+        hipparcosData.forEach(line => {
             const parts = line.split(',');
-            const raParts = parts[1].split(' ');
-            const decParts = parts[2].split(' ');
 
             stars.push({
-                name: parts[0].trim(),
-                ra: 15 * (1 * raParts[0] + raParts[1] / 60 + raParts[2] / 3600),
-                dec: 1 * decParts[0] + decParts[1] / 60,
+                name: 'HIP' + parts[0],
+                ra: parts[1],
+                dec: parts[2],
             });
         });
 

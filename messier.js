@@ -110,4 +110,4 @@ M107	6171	Gc	7.9	10	20900	16h 32.5m	-13° 03′	Oph	summer
 M108	3556	Sp	10.0	8x1	45 million	11h 11.5m	+55° 40′	UMa	spring	
 M109	3992	Ba	9.8	7x4	55 million	11h 57.6m	+53° 23′	UMa	spring	
 M110	205	El	8.5	17x10	3 million	00h 40.4m	+41° 41′	And	autumn	
-`.trim().split('\n');;
+`.trim().split('\n');
