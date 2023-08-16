@@ -58,14 +58,14 @@ function allow() {
         }
 
         wikipediaData.forEach(line => {
-            const raParts = line.slice(7, 20).split(' ');
-            const decParts = line.slice(22).split(' ');
-            const chomp = s => s.slice(0, s.length - 1);
+            const raParts = line.substring(7, 21).split(' ');
+            const decParts = line.substring(22).split(' ');
+            const chomp = s => s.substring(0, s.length - 1);
 
             stars.push(createStar(
-                line.slice(0, 6),
+                line.substring(0, 6),
                 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
-                1 * decParts[0].slice(0, 3) + decParts[1].slice(0, 2) / 60
+                1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
             ));
         });
 
