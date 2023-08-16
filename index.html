@@ -33,9 +33,16 @@
     });
 
     setInterval(() => {
-        const time = new Date();
+        const t = new Date();
         const pad = n => (n < 10 ? '0' : '') + n;
+        const time = [t.getHours() % 12, pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 
-        put('time', [time.getHours() % 12, pad(time.getMinutes()), pad(time.getSeconds())].join(':'));
+        put('time', time);
+
+        const tr = document.getElementById("stars").firstChild;
+
+        if (tr.lastChild.innerHTML < time) {
+            tr.remove();
+        }
     }, 1000);
 </script>
