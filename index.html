@@ -29,7 +29,11 @@
     }
 
     window.addEventListener('deviceorientation', e => {
-        put('tilt', Math.round(e.beta));
+        const tilt = Math.round(e.beta);
+
+        if (tilt > 0) {
+            put('tilt', tilt);
+        }
     });
 
     setInterval(() => {
