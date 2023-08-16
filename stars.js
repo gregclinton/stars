@@ -12,7 +12,7 @@ stars = {};
         hpmag < 8
 */
 
-// from wikipedia
+// from wikipedia epoch 2000 equinox 2000
 const data = `
 α Oph 2.1 17h 34m 56.00s +12° 33′
 η Oph 2.4 17h 10m 22.66s -15° 43′
