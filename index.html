@@ -39,9 +39,9 @@
 
         put('time', time);
 
-        const tr = document.getElementById("stars").firstChild;
+        const tr = document.getElementById("stars").firstElementChild;
 
-        if (tr.lastChild.innerHTML < time) {
+        if (tr.lastElementChild.innerHTML < time) {
             tr.remove();
         }
     }, 1000);
