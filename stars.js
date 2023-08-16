@@ -71,9 +71,9 @@ stars.load = function () {
     document.getElementById('allow').remove();
 
     getGeoLocation((latitude, longitude) => {
-        const t = new Date();
-        const today = t.getDate();
-        const lst = localSiderealDegrees(t, longitude);
+        const now = new Date();
+        const today = now.getDate();
+        const lst = localSiderealDegrees(now, longitude);
         let stars = [];
 
         data.forEach(line => {
@@ -92,11 +92,21 @@ stars.load = function () {
             );
 
             // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
-            const diff = ra + (lst > ra ? 360 : 0) - lst;
-            star.time = new Date(t.getTime() + 240000 * diff / 1.0027379);
+            function getStarTime(ra) {
+                const diff = ra + (lst > ra ? 360 : 0) - lst;
 
+                return new Date(now.getTime() + 240000 * diff / 1.0027379);
+            }
+
+            star.time = getStarTime(ra);
             star.direction = dec > latitude ? 'N' : 'S';
             star.tilt = 90 - Math.abs(dec - latitude);
+
+            if (star.Time.getDate() !== today && dec + latitude > 90) {
+                // star is below polaris and above horizon
+                star.time = getStarTime((ra + 180) % 360);
+                star.tilt = dec + latitude - 90;
+            }
 
             stars.push(star);
         });
