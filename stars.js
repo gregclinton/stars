@@ -70,21 +70,15 @@ function allow() {
         });
 
         messierData.forEach(line => {
-            const parts = line.split('\t');
-            const raParts = line.slice().split(' ');
-            const decParts = line.slice().split(' ');
-            const mag = parts[3] * 1;
+            const raParts = line.slice(4, 13).split(' ');
+            const decParts = line.slice(14).split(' ');
+            const chomp = s => s.slice(0, s.length - 1);
 
-            if (mag < 7) {
-                console.log(parts[0], parts[6], parts[7]);
-                const chomp = s => s.slice(0, s.length - 1);
-
-                stars.push(createStar(
-                    parts[0].trim(),
-                    15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
-                    1 * decParts[0].slice(0, 3) + decParts[1].slice(0, 2) / 60,
-                ));
-            }
+            stars.push(createStar(
+                line.slice(0, 3).trim(),
+                15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
+                1 * decParts[0].slice(0, 3) + decParts[1].slice(0, 2) / 60,
+            ));
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
