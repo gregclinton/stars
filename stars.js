@@ -52,6 +52,7 @@ function allow() {
             star.ra = raPrecessed;
             star.dec = decPrecessed;
 
+            // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
             const diff = star.ra + (lst > star.ra ? 360 : 0) - lst;
             star.time = new Date(t.getTime() + 240000 * diff / 1.0027379);
             return star;
@@ -84,7 +85,6 @@ function allow() {
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
 
         stars.forEach(star => {
-            // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
             const time = star.time;
             const hour = time.getHours();
 
