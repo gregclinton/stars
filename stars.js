@@ -71,12 +71,12 @@ function allow() {
 
         messierData.forEach(line => {
             const parts = line.split('\t');
-            const raParts = parts[6].split(' ');
-            const decParts = parts[7].split(' ');
+            const raParts = line.slice().split(' ');
+            const decParts = line.slice().split(' ');
             const mag = parts[3] * 1;
 
-            console.log(parts[0], parts[6], parts[7]);
             if (mag < 7) {
+                console.log(parts[0], parts[6], parts[7]);
                 const chomp = s => s.slice(0, s.length - 1);
 
                 stars.push(createStar(
