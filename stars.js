@@ -44,7 +44,7 @@ G Sco 3.2 17h 49m 51.45s -37° 02′
 function formatTime(t) {
     const pad = n => (n < 10 ? '0' : '') + n;
 
-    return [t.getHours() % 12, pad(time.getMinutes()), pad(time.getSeconds())].join(':');
+    return [t.getHours() % 12, pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
 stars.load = function () {
