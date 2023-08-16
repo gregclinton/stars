@@ -59,8 +59,8 @@ function allow() {
         }
 
         wikipediaData.forEach(line => {
-            const raParts = line.substring(7, 21).split(' ');
-            const decParts = line.substring(22).split(' ');
+            const raParts = line.substring(6, 20).split(' ');
+            const decParts = line.substring(21).split(' ');
             const chomp = s => s.substring(0, s.length - 1);
 
             stars.push(createStar(
