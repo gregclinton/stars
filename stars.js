@@ -1,3 +1,5 @@
+stars = {};
+
 // from wikipedia
 const wikipediaData = `
 α Oph 2.1 17h 34m 56.00s +12° 33′
@@ -39,7 +41,13 @@ G Sco 3.2 17h 49m 51.45s -37° 02′
 β Lyr 3.5 18h 50m 04.79s +33° 21′
 `.trim().split('\n');
 
-function allow() {
+function formatTime(t) {
+    const pad = n => (n < 10 ? '0' : '') + n;
+
+    return [t.getHours() % 12, pad(time.getMinutes()), pad(time.getSeconds())].join(':');
+}
+
+stars.load = function () {
     document.getElementById('allow').remove();
 
     getGeoLocation((latitude, longitude) => {
@@ -108,12 +116,31 @@ function allow() {
 
                 const tilt = 90 - Math.abs(star.dec - latitude);
                 addTd(Math.round(tilt));
-
-                const pad = n => (n < 10 ? '0' : '') + n;
-                addTd([hour % 12, pad(time.getMinutes()), pad(time.getSeconds())].join(':'));
+                addTd(formatTime(time));
 
                 document.getElementById('stars').appendChild(tr);
             }
         });
     });
+
+    stars.purge();
+};
+
+stars.purge = function() {
+    const t = new Date();
+
+    if (t.getHours() > 17) {
+        const time = formatTime(t);
+        let keepGoing = true;
+
+        while (keepGoing) {
+            const tr = document.getElementById("stars").firstElementChild;
+            keepGoing = false;
+
+            if (tr && tr.lastElementChild.innerHTML < time) {
+                tr.remove();
+                keepGoing = true;
+            }
+        }
+    }
 };
