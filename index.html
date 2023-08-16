@@ -40,9 +40,15 @@
         put('time', time);
 
         const tr = document.getElementById("stars").firstElementChild;
+        let keepGoing = true;
 
-        if (tr && tr.lastElementChild.innerHTML < time) {
-            tr.remove();
+        while (keepGoing) {
+            keepGoing = false;
+
+            if (tr && tr.lastElementChild.innerHTML < time) {
+                tr.remove();
+                keepGoing = true;
+            }
         }
     }, 1000);
 </script>
