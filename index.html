@@ -38,7 +38,8 @@
     setInterval(() => {
         const t = new Date();
         const pad = n => (n < 10 ? '0' : '') + n;
-        const time = [t.getHours() % 12, pad(t.getMinutes()), pad(t.getSeconds())].join(':');
+        const h = t.getHours()
+        const time = [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 
         put('time', time);
         stars.purge(t);

@@ -62,8 +62,9 @@ M7    3.3 17h 53m 51.20s -34° 47′
 
 function formatTime(t) {
     const pad = n => (n < 10 ? '0' : '') + n;
+    const h = t.getHours()
 
-    return [t.getHours() % 12, pad(t.getMinutes()), pad(t.getSeconds())].join(':');
+    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
 stars.load = function () {
