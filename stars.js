@@ -45,8 +45,8 @@ function allow() {
         const lst = localSiderealDegrees(t, longitude);
         let stars = [];
 
-        function createStar(name, ra, dec) {
-            const star = { name: name };
+        function createStar(name, mag, ra, dec) {
+            const star = { name: name, mag: mag };
             const [raPrecessed, decPrecessed] = precess(ra, dec);
 
             star.ra = raPrecessed;
@@ -65,6 +65,7 @@ function allow() {
 
             stars.push(createStar(
                 line.substring(0, 6),
+                '3.0',
                 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
                 1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
             ));
@@ -77,6 +78,7 @@ function allow() {
 
             stars.push(createStar(
                 line.slice(0, 3).trim(),
+                '7.1',
                 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
                 1 * decParts[0].slice(0, 3) + decParts[1].slice(0, 2) / 60,
             ));
@@ -98,6 +100,7 @@ function allow() {
                 }
 
                 addTd(star.name);
+                addTd(star.mag);
                 addTd(star.dec > latitude ? 'N' : 'S');
 
                 const tilt = 90 - Math.abs(star.dec - latitude);
