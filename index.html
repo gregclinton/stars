@@ -39,10 +39,10 @@
 
         put('time', time);
 
-        const tr = document.getElementById("stars").firstElementChild;
         let keepGoing = true;
 
         while (keepGoing) {
+            const tr = document.getElementById("stars").firstElementChild;
             keepGoing = false;
 
             if (tr && tr.lastElementChild.innerHTML < time) {
