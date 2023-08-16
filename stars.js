@@ -86,17 +86,17 @@ stars.load = function () {
             const decParts = line.substring(25).split(' ');
             const chomp = s => s.substring(0, s.length - 1);
 
-            const [raPrecessed, decPrecessed] = precess(
+            const [ra, dec] = precess(
                 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
                 1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
             );
 
-            star.ra = raPrecessed;
-            star.dec = decPrecessed;
-
             // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
-            const diff = star.ra + (lst > star.ra ? 360 : 0) - lst;
+            const diff = ra + (lst > ra ? 360 : 0) - lst;
             star.time = new Date(t.getTime() + 240000 * diff / 1.0027379);
+
+            star.direction = dec > latitude ? 'N' : 'S';
+            star.tilt = 90 - Math.abs(dec - latitude);
 
             stars.push(star);
         });
@@ -118,10 +118,8 @@ stars.load = function () {
 
                 addTd(star.name);
                 addTd(star.mag);
-                addTd(star.dec > latitude ? 'N' : 'S');
-
-                const tilt = 90 - Math.abs(star.dec - latitude);
-                addTd(Math.round(tilt));
+                addTd(star.direction);
+                addTd(Math.round(star.tilt));
                 addTd(formatTime(time));
 
                 document.getElementById('stars').appendChild(tr);
