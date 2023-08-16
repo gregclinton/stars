@@ -1,7 +1,7 @@
 stars = {};
 
 // from wikipedia
-const wikipediaData = `
+const data = `
 α Oph 2.1 17h 34m 56.00s +12° 33′
 η Oph 2.4 17h 10m 22.66s -15° 43′
 ζ Oph 2.5 16h 37m 09.53s -10° 34′
@@ -56,9 +56,20 @@ stars.load = function () {
         const lst = localSiderealDegrees(t, longitude);
         let stars = [];
 
-        function createStar(name, mag, ra, dec) {
-            const star = { name: name, mag: mag };
-            const [raPrecessed, decPrecessed] = precess(ra, dec);
+        data.forEach(line => {
+            const star = {
+                name: line.substring(0, 6),
+                mag: line.substring(6, 9),
+            };
+
+            const raParts = line.substring(10, 24).split(' ');
+            const decParts = line.substring(25).split(' ');
+            const chomp = s => s.substring(0, s.length - 1);
+
+            const [raPrecessed, decPrecessed] = precess(
+                15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
+                1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
+            );
 
             star.ra = raPrecessed;
             star.dec = decPrecessed;
@@ -66,33 +77,8 @@ stars.load = function () {
             // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
             const diff = star.ra + (lst > star.ra ? 360 : 0) - lst;
             star.time = new Date(t.getTime() + 240000 * diff / 1.0027379);
-            return star;
-        }
 
-        wikipediaData.forEach(line => {
-            const raParts = line.substring(10, 24).split(' ');
-            const decParts = line.substring(25).split(' ');
-            const chomp = s => s.substring(0, s.length - 1);
-
-            stars.push(createStar(
-                line.substring(0, 6),
-                line.substring(6, 9),
-                15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
-                1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
-            ));
-        });
-
-        messierData.forEach(line => {
-            const raParts = line.slice(8, 17).split(' ');
-            const decParts = line.slice(18).split(' ');
-            const chomp = s => s.slice(0, s.length - 1);
-
-            stars.push(createStar(
-                line.substring(0, 3).trim(),
-                line.substring(4, 7),
-                15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60),
-                1 * decParts[0].slice(0, 3) + decParts[1].slice(0, 2) / 60,
-            ));
+            stars.push(star);
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
