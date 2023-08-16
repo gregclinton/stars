@@ -102,7 +102,7 @@ stars.load = function () {
             star.direction = dec > latitude ? 'N' : 'S';
             star.tilt = 90 - Math.abs(dec - latitude);
 
-            if (star.Time.getDate() !== today && dec + latitude > 90) {
+            if (star.time.getDate() !== today && dec + latitude > 90) {
                 // star is below polaris and above horizon
                 star.time = getStarTime((ra + 180) % 360);
                 star.tilt = dec + latitude - 90;
