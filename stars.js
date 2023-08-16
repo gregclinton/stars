@@ -101,7 +101,7 @@ function allow() {
                 addTd(star.dec > latitude ? 'N' : 'S');
 
                 const tilt = 90 - Math.abs(star.dec - latitude);
-                addTd(Math.round(tilt * 10) / 10);
+                addTd(Math.round(tilt));
 
                 const pad = n => (n < 10 ? '0' : '') + n;
                 addTd([hour % 12, pad(time.getMinutes()), pad(time.getSeconds())].join(':'));
