@@ -99,8 +99,7 @@ function allow() {
                 addTd(Math.floor(tilt));
 
                 const pad = n => (n < 10 ? '0' : '') + n;
-                const t = time;
-                addTd([hour % 12, pad(t.getMinutes())].join(':'));
+                addTd([hour % 12, pad(time.getMinutes())].join(':'));
 
                 document.getElementById('stars').appendChild(tr);
             }
