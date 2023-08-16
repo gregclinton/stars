@@ -41,7 +41,7 @@
 
         const tr = document.getElementById("stars").firstElementChild;
 
-        if (tr.lastElementChild.innerHTML < time) {
+        if (tr && tr.lastElementChild.innerHTML < time) {
             tr.remove();
         }
     }, 1000);
