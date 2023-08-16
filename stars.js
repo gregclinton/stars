@@ -36,17 +36,7 @@ G Sco 17h 49m 51.45s -37° 02′ 36.1″
 γ Lyr 18h 58m 56.62s +32° 41′ 22.4″
 `.trim().split('\n');
 
-/*
-    https://dc.zah.uni-heidelberg.de/__system__/adql/query/form
-
-    select hipno, ra, dec, hpmag
-    from hipparcos.main
-    where
-        dec > -50 and
-        hpmag < 3
-
-   // α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ/ς τ υ φ χ ψ ω
-*/function allow() {
+function allow() {
     document.getElementById('allow').remove();
 
     getGeoLocation((latitude, longitude) => {
