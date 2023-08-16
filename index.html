@@ -7,7 +7,6 @@
 <body>
     <button id="allow" onclick="allow()">allow</button>
     <div>
-        <div id="name"></div>
         <div  id="time"></div>
         <div id="tilt"></div>
         <table>
@@ -25,39 +24,18 @@
 <script src="stars.js"></script>
 
 <script>
-    let targetTime = false;
-    let targetTilt = false;
-
     function put(name, value) {
         document.getElementById(name).innerHTML = value;
     }
 
-    function explore(name, time, tilt) {
-        targetTime = new Date(time);
-        targetTilt = tilt;
-
-        put('name', name);
-        put('time', '');
-    }
-
-    const floor = Math.floor;
-
     window.addEventListener('deviceorientation', e => {
-        if (targetTilt) {
-            const tilt = Math.abs(targetTilt - e.beta);
-            put('tilt', tilt > 1 ? floor(tilt) : tilt < 0.25 ? 0 : 1);
-        }
+        put('tilt', Math.round(e.beta * 10) / 10);
     });
 
     setInterval(() => {
-        if (targetTime) {
-            const pad = n => (n < 10 ? '0' : '') + n;
-            const t = floor(Math.abs(targetTime - new Date()) / 1000);
-            const seconds = t % 60;
-            const minutes = floor(t / 60) % 60;
-            const hours = floor(t / 60 / 60);
+        const time = new Date();
+        const pad = n => (n < 10 ? '0' : '') + n;
 
-            put('time', [hours, pad(minutes), pad(seconds)].join(':'));
-        }
+        put('time', [time.getHours() % 12, pad(time.getMinutes()), pad(time.getSeconds())].join(':'));
     }, 1000);
 </script>
