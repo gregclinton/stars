@@ -74,7 +74,7 @@ function allow() {
             }
         });
 
-        stars = stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
+        stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
 
         stars.forEach(star => {
             // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
