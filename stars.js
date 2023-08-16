@@ -45,7 +45,7 @@ function allow() {
         }
 
         wikipediaData.forEach(line => {
-            const parts = line.split('\t');
+            const parts = line.replaceAll('−', '-').split('\t');
             const raParts = parts[7].split(' ');
             const decParts = parts[8].split(' ');
             const chomp = s => s.slice(0, s.length - 1);
