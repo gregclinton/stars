@@ -63,7 +63,7 @@ function allow() {
 
             stars.push(createStar(
                 line.substring(0, 6),
-                line.substring(7, 10),
+                line.substring(6, 9),
                 15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
                 1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
             ));
