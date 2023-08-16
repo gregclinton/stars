@@ -1,5 +1,17 @@
 stars = {};
 
+/*
+    https://dc.zah.uni-heidelberg.de/__system__/adql/query/form
+
+    select hipno, ra, dec, hpmag
+    from hipparcos.main
+    where
+        dec > -50 and
+        ra > 16 * 15 and
+        ra < 18 * 15 and
+        hpmag < 8
+*/
+
 // from wikipedia
 const data = `
 α Oph 2.1 17h 34m 56.00s +12° 33′
