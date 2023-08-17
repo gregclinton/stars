@@ -21,11 +21,20 @@ function formatTime(t) {
 stars.load = function () {
     document.getElementById('allow').remove();
     const names = bayer.load();
+    return;
 
+    let bayerData = '';
+    
     hipparcos.data.forEach(row => {
         [hipno, mag, ra, dec] = row.split(',');
-        console.log(names[hipno], (mag * 10) / 10, ra * 1, dec * 1);
+        const xxx = names[hipno];
+
+        if (xxx) {
+            bayerData += [hipno, xxx.letter, xxx.constellation].join(',') + '\n';
+        }
     });
+
+    console.log(bayerData);
     return;
 
     getGeoLocation((latitude, longitude) => {

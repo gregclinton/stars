@@ -18,7 +18,8 @@
 
 */
 
-bayer = {};
+const bayer = {};
+let bayerData = '';
 
 bayer.load = function () {
     lookup = {};
@@ -3721,8 +3722,11 @@ bayer.load = function () {
         phi: 'φ', chi: 'χ', psi: 'ψ', ome: 'ω',
     }[greek.substring(0, 3)] || '';
 
+    bayerData += [hipno, letter, constellation].join(',') + '\n';
 
-    lookup[hipno] = letter + ' ' + constellation;
+
+    lookup[hipno] = { letter: letter,  constellation: constellation };
 })
+console.log(bayerData);
 return lookup;
 }
