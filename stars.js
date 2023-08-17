@@ -1,33 +1,5 @@
 stars = {};
 
-/*
-    https://dc.zah.uni-heidelberg.de/__system__/adql/query/form
-
-    select hipno, ra, dec, hpmag
-    from hipparcos.main
-    where
-        dec > -50 and
-        ra > 16 * 15 and
-        ra < 18 * 15 and
-        hpmag < 8
-*/
-
-/*
-    bayer designation
-
-    24 greek letters
-    αβγδεζηθικλμνξοπρστυφχψω
-
-    88 constellations
-    And, Ant, Aps, Aqr, Aql, Ara, Ari, Aur, Boo, Cae, Cam, Cnc, CVn, CMa, CMi, Cap, Car, Cas, Cen, Cep,
-    Cet, Cha, Cir, Col, Com, CrA, CrB, Crv, Crt, Cru, Cyg, Del, Dor, Dra, Equ, Eri, For, Gem, Gru, Her,
-    Hor, Hya, Hyi, Ind, Lac, Leo, LMi, Lep, Lib, Lup, Lyn, Lyr, Men, Mic, Mon, Mus, Nor, Oct, Oph, Ori,
-    Pav, Peg, Per, Phe, Pic, Psc, PsA, Pup, Pyx, Ret, Sge, Sgr, Sco, Scl, Sct, Ser, Sex, Tau, Tel, Tri,
-    TrA, Tuc, UMa, UMi, Vel, Vir, Vol, Vul
-
-    24 x 88 = 2,112
-*/
-
 // from wikipedia epoch 2000 equinox 2000
 const data = `
 α Oph 2.1 17h 34m 56.00s +12° 33′
