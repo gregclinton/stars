@@ -412,7 +412,7 @@ hipparcos.load = function () {
 100453,2.3549,305.55708346,40.2566815
 `.trim().split('\n').forEach(line => { 
         [hipno, mag, ra, dec] = line.split('\t');
-        lookup[hipno] = { mag: mag, ra: ra, dec: dec}
+        lookup[hipno] = { mag: mag, ra: ra, dec: dec };
     })
     return lookup;
 }
