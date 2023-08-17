@@ -17,3 +17,8 @@ body
 {
     padding-right: 10px;
 }
+
+table tr td:first-child
+{
+    text-align: right;
+}
