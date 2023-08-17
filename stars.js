@@ -47,26 +47,26 @@ stars.load = function () {
 
         hipparcos.data.forEach(row => {
             [hipno, mag, ra, dec] = row.split(',');
-            const x =  bayerLookup[hipno];
+            const names =  bayerLookup[hipno];
 
-            if (x) {
-                const [name, constellation] = x;
-        
+            if (names) {
+                const [name, constellation] = names;
+
                 addStar(name, constellation, mag * 1, ra * 1, dec * 1);
             }
         });
 
         messiers.forEach(line => {
-            const raParts = line.substring(14, 28).split(' ');
-            const decParts = line.substring(29).split(' ');
+            const name = line.substring(0, 5);
+            const constellation = line.substring(6, 9);
+            const mag = line.substring(10, 13);
+            const [h, m, s] = line.substring(14, 28).split(' ');
             const chomp = s => s.substring(0, s.length - 1);
+            const ra = 15 * (1 * chomp(h) + chomp(m) / 60 + chomp(s) / 3600);
+            const [degrees, minutes] = line.substring(29).split(' ');
+            const dec = degrees.substring(0, 3) * 1 + minutes.substring(0, 2) / 60;
 
-            const [ra, dec] = [
-                15 * (1 * chomp(raParts[0]) + chomp(raParts[1]) / 60 + chomp(raParts[2]) / 3600),
-                1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
-            ];
-
-            addStar(line.substring(0, 5), line.substring(6, 9), line.substring(10, 13) * 1, ra, dec);
+            addStar(name, constellation, mag, ra, dec);
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
