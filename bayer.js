@@ -3593,9 +3593,9 @@ bayer.load = function () {
 355,,Cet
 30756,,Gem
 `.trim().split('\n').forEach(line => {
-    const [hipno, letter, constellation] = line.split(',');
+    const parts = line.split(',');
 
-    lookup[hipno] = { letter: letter,  constellation: constellation };
+    lookup[parts[0]] = parts.slice(1);
 })
 return lookup;
 }
