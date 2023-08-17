@@ -20,28 +20,27 @@ function formatTime(t) {
 
 stars.load = function () {
     document.getElementById('allow').remove();
-    const names = bayer.load();
-    return;
+    const letterConstellationLookup = bayer.load();
 
-    let bayerData = '';
-    
-    hipparcos.data.forEach(row => {
-        [hipno, mag, ra, dec] = row.split(',');
-        const xxx = names[hipno];
-
-        if (xxx) {
-            bayerData += [hipno, xxx.letter, xxx.constellation].join(',') + '\n';
-        }
-    });
-
-    console.log(bayerData);
-    return;
 
     getGeoLocation((latitude, longitude) => {
         const now = new Date();
         const today = now.getDate();
         const lst = localSiderealDegrees(now, longitude);
         let stars = [];
+
+        function addStar(name, constellation, ra, dec) {
+
+        }
+
+        hipparcos.data.forEach(row => {
+            [hipno, mag, ra, dec] = row.split(',');
+            const letterConstellation = letterConstellationLookup[hipno];
+    
+            if (letterConstellation) {
+                bayerData += [hipno, xxx.letter, xxx.constellation].join(',') + '\n';
+            }
+        });    
 
         data.forEach(line => {
             const star = {
