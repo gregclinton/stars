@@ -18,7 +18,9 @@ body
     padding-right: 10px;
 }
 
-table tr td:first-child
+table tr td:first-child,
+table tr td:nth-child(3),
+table tr td:nth-child(5)
 {
     text-align: right;
 }
