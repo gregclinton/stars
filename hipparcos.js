@@ -8,7 +8,7 @@
 
     usage:
     hipparcos.data.forEach(row => {
-        [hipno, mag, ra, dec] = row.split['\t'];
+        [hipno, mag, ra, dec] = row.split[','];
     });
 */
 
