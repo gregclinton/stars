@@ -20,7 +20,7 @@ stars.load = function () {
             const star = {
                 name: name,
                 constellation: constellation,
-                mag: (Math.round(mag * 10) / 10).toFixed(1),
+                mag: (mag * 1).toFixed(1),
             };
             const [ra, dec] = precess(ra2000, dec2000);
 
