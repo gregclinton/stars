@@ -5,12 +5,15 @@
     select hipno, hpmag, ra, dec,
     from hipparcos.main
     where dec > -45 and hpmag < 4
+
+    usage:
+    hipparcos.data.forEach(row => {
+        [hipno, mag, ra, dec] = row.split['\t'];
+    });
 */
 
-const hipparcos = {};
-
-hipparcos.load = function () {
-    lookup = {};
+const hipparcos = {
+    data: 
 `
 112724,3.6704,342.42046735,66.20071089
 105199,2.5141,319.64408982,62.58545529
@@ -394,9 +397,5 @@ hipparcos.load = function () {
 677,2.0371,2.09653333,29.09082805
 3092,3.4328,9.83165567,30.86122579
 100453,2.3549,305.55708346,40.2566815
-`.trim().split('\n').forEach(line => { 
-        [hipno, mag, ra, dec] = line.split('\t');
-        lookup[hipno] = { mag: mag, ra: ra, dec: dec };
-    })
-    return lookup;
-}
+`.trim().split('\n')
+};

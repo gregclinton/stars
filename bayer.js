@@ -21,7 +21,11 @@
 bayer = {};
 
 bayer.load = function () {
-    lookup = {};
+    const letters = {
+        alf: 'α', bet: 'β', gam: 'α', del: 'β', eps: 'α', bet: 'β', alf: 'α', bet: 'β', alf: 'α', bet: 'β', 
+
+    };
+    const lookup = {};
 `
 28	BD-06 6357	59	3	443	00 05 20.15- 05 42 28.2	4.61	33		Psc
 87	BD+12 5063	75	4	476	00 05 41.94+ 13 23 46.6	5.55	86		Peg
