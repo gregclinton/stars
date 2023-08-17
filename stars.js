@@ -9,7 +9,6 @@ function formatTime(t) {
 
 stars.load = function () {
     document.getElementById('allow').remove();
-    const bayerLookup = bayer.load();
 
     getGeoLocation((latitude, longitude) => {
         const now = new Date();
@@ -21,7 +20,7 @@ stars.load = function () {
             const star = {
                 name: name,
                 constellation: constellation,
-                mag: Math.round(mag * 10) / 10,
+                mag: (Math.round(mag * 10) / 10).toFixed(1),
             };
             const [ra, dec] = precess(ra2000, dec2000);
 
@@ -44,6 +43,8 @@ stars.load = function () {
 
             stars.push(star);
         }
+
+        const bayerLookup = bayer.load();
 
         hipparcos.data.forEach(row => {
             [hipno, mag, ra, dec] = row.split(',');
