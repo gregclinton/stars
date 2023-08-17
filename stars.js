@@ -57,8 +57,8 @@ stars.load = function () {
         });
 
         messiers.forEach(line => {
-            const raParts = line.substring(10, 24).split(' ');
-            const decParts = line.substring(25).split(' ');
+            const raParts = line.substring(14, 28).split(' ');
+            const decParts = line.substring(29).split(' ');
             const chomp = s => s.substring(0, s.length - 1);
 
             const [ra, dec] = [
@@ -66,7 +66,7 @@ stars.load = function () {
                 1 * decParts[0].substring(0, 3) + decParts[1].substring(0, 2) / 60
             ];
 
-            addStar(line.substring(0, 6), line.substring(7, 10), line.substring(10, 13) * 1, ra, dec);
+            addStar(line.substring(0, 5), line.substring(6, 9), line.substring(10, 13) * 1, ra, dec);
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
