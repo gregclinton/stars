@@ -3722,7 +3722,9 @@ bayer.load = function () {
         phi: 'φ', chi: 'χ', psi: 'ψ', ome: 'ω',
     }[greek.substring(0, 3)] || '';
 
-    bayerData += [hipno, letter, constellation].join(',') + '\n';
+    if (hipno.length > 0 && constellation.length > 0) {
+         bayerData += [hipno, letter, constellation].join(',') + '\n';
+    }
 
 
     lookup[hipno] = { letter: letter,  constellation: constellation };
