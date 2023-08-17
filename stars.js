@@ -52,7 +52,7 @@ stars.load = function () {
             if (names) {
                 const [name, constellation] = names;
 
-                addStar(name, constellation, mag * 1, ra * 1, dec * 1);
+                addStar(name, constellation, mag, ra, dec);
             }
         });
 
