@@ -47,7 +47,7 @@ stars.load = function () {
 
         hipparcos.data.forEach(row => {
             [hipno, mag, ra, dec] = row.split(',');
-            const names =  bayerLookup[hipno];
+            const names = bayerLookup[hipno];
 
             if (names) {
                 const [name, constellation] = names;
