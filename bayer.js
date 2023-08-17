@@ -3714,7 +3714,7 @@ bayer.load = function () {
 257498	BD+20 1426	8358		30756	06 27 45.84+ 20 46 58.8	9.21	15		Gem
 257937	BD+20 1440	8391			06 28 53.7 + 20 14 20.	8.0	18	nu.	Gem
 `.trim().split('\n').forEach(line => {
-    const [hipno, a, b, c, d, e, f, g, greek, constellation] = line.split('\t');
+    const [a, b, c, d, hipno, e, f, g, greek, constellation] = line.split('\t');
     const letter = greek === '' ? '' : {
         alf: 'α', bet: 'β', gam: 'γ', del: 'δ', eps: 'ε', zet: 'ζ', eta: 'η', the: 'θ', iot: 'ι', kap: 'κ',
         lam: 'λ',  mu: 'μ',  nu: 'ν',  xi: 'ξ', omi: 'ο',  pi: 'π', rho: 'ρ', sig: 'σ', tau: 'τ', ups: 'υ',
