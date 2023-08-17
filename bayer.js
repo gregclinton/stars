@@ -21,11 +21,7 @@
 bayer = {};
 
 bayer.load = function () {
-    const letters = {
-        alf: 'α', bet: 'β', gam: 'α', del: 'β', eps: 'α', bet: 'β', alf: 'α', bet: 'β', alf: 'α', bet: 'β', 
-
-    };
-    const lookup = {};
+    lookup = {};
 `
 28	BD-06 6357	59	3	443	00 05 20.15- 05 42 28.2	4.61	33		Psc
 87	BD+12 5063	75	4	476	00 05 41.94+ 13 23 46.6	5.55	86		Peg
@@ -3717,9 +3713,16 @@ bayer.load = function () {
 225212	BD-11 6194	36	9103	355	00 04 30.12- 10 30 34.2	4.99	3		Cet
 257498	BD+20 1426	8358		30756	06 27 45.84+ 20 46 58.8	9.21	15		Gem
 257937	BD+20 1440	8391			06 28 53.7 + 20 14 20.	8.0	18	nu.	Gem
-`.trim().split('\n').forEach(line => { 
-    [hipno, a, b, c, d, e, f, g, greek, constellation] = row.split('\t');
-    lookup[hipno] = greek + ' ' + constellation;
+`.trim().split('\n').forEach(line => {
+    const [hipno, a, b, c, d, e, f, g, greek, constellation] = line.split('\t');
+    const letter = greek === '' ? '' : {
+        alf: 'α', bet: 'β', gam: 'γ', del: 'δ', eps: 'ε', zet: 'ζ', eta: 'η', the: 'θ', iot: 'ι', kap: 'κ',
+        lam: 'λ',  mu: 'μ',  nu: 'ν',  xi: 'ξ', omi: 'ο',  pi: 'π', rho: 'ρ', sig: 'σ', tau: 'τ', ups: 'υ',
+        phi: 'φ', chi: 'χ', psi: 'ψ', ome: 'ω',
+    }[greek.substring(0, 3)] || '';
+
+
+    lookup[hipno] = letter + ' ' + constellation;
 })
 return lookup;
 }

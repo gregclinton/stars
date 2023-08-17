@@ -57,6 +57,13 @@ function formatTime(t) {
 
 stars.load = function () {
     document.getElementById('allow').remove();
+    const names = bayer.load();
+
+    hipparcos.data.forEach(row => {
+        [hipno, mag, ra, dec] = row.split(',');
+        console.log(names[hipno], (mag * 10) / 10, ra * 1, dec * 1);
+    });
+    return;
 
     getGeoLocation((latitude, longitude) => {
         const now = new Date();
