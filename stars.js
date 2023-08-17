@@ -84,8 +84,7 @@ stars.load = function () {
                     tr.appendChild(td);
                 }
 
-                addTd(star.name);
-                addTd(star.constellation);
+                addTd(star.name + ' ' + star.constellation);
                 addTd(star.mag);
                 addTd(star.direction);
                 addTd(Math.round(star.tilt));
