@@ -11,8 +11,8 @@ function formatTime(t) {
 function formatRa(ra) {
     const floor = Math.floor;
     const h = floor(ra / 15);
-    const m = floor(12);
-    const s = floor(ra % 60);
+    const m = floor(ra * 4 % 60);
+    const s = floor(ra * 240 % 60);
 
     return [pad(h), pad(m), pad(s)].join(' ');
 }
@@ -48,7 +48,7 @@ stars.load = function () {
         const lst = localSiderealDegrees(now, longitude);
         let stars = [];
 
-    
+
         function addStar(name, con, mag, ra2000, dec2000) {
             const star = {
                 name: name,
@@ -141,7 +141,9 @@ stars.load = function () {
         });
 
         setInterval(() => {
-            put('sid', formatRa(localSiderealDegrees(new Date(), longitude)));
+            const t = new Date();
+
+            put('sid', formatRa(localSiderealDegrees(t, longitude)));
             stars.purge(t);
         }, 1000);
     });
