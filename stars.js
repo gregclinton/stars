@@ -54,8 +54,7 @@ stars.load = function () {
             }
 
             star.time = getStarTime(ra);
-            star.direction = dec > latitude ? 'N' : 'S';
-            star.tilt = 90 - Math.abs(dec - latitude);
+            star.dec = dec;
 
             if (star.time.getDate() !== today && dec + latitude > 90) {
                 // star is below polaris and above horizon
@@ -102,8 +101,7 @@ stars.load = function () {
                 addTd(star.name);
                 addTd(star.con);
                 addTd(star.mag);
-                addTd(star.direction);
-                addTd(Math.round(star.tilt));
+                addTd(star.dec.toFixed(1));
                 addTd(formatTime(time));
 
                 document.getElementById('stars').appendChild(tr);
