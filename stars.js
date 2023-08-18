@@ -117,7 +117,7 @@ stars.load = function () {
 stars.purge = function() {
     const t = new Date();
 
-    if (afterdark(t) > 17) {
+    if (afterdark(t)) {
         const time = formatTime(t);
         let keepGoing = true;
 
