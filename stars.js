@@ -140,15 +140,8 @@ stars.load = function () {
             }
         });
 
-        setInterval(() => {
-            const t = new Date();
-
-            put('sid', formatRa(localSiderealDegrees(t, longitude)));
-            stars.purge(t);
-        }, 1000);
+        setInterval(() => put('sid', formatRa(localSiderealDegrees(new Date(), longitude))), 1000);
     });
-
-    stars.purge();
 };
 
 stars.purge = function() {
@@ -169,3 +162,5 @@ stars.purge = function() {
         }
     }
 };
+
+setInterval(() => stars.purge(new Date()), 1000);
