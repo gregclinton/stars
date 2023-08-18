@@ -9,7 +9,7 @@ function formatTime(t) {
 
 function afterdark(t) {
     const today = new Date();
-    const isDst = today.getTimezoneOffset() / 60 === 7;
+    const isDst = today.getTimezoneOffset() !== new Date('2000').getTimezoneOffset();
     const y = today.getFullYear();
     const m = today.getMonth();
     const d = today.getDate();
