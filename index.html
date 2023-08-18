@@ -7,7 +7,7 @@
 <body>
     <button id="allow" onclick="stars.load()">allow</button>
     <div>
-        <span id="time"></span>
+        <span id="sid"></span>
         <span id="dec" onclick="toggleDirection()"></span>
         <table>
             <tbody id="stars"/>
@@ -24,33 +24,3 @@
 <script src="bayer.js"></script>
 <script src="messier.js"></script>
 <script src="stars.js"></script>
-
-<script>
-    let southward = true;
-
-    function put(name, value) {
-        document.getElementById(name).innerHTML = value;
-    }
-
-    function toggleDirection() {
-        southward = !southward; 
-    }
-
-    window.addEventListener('deviceorientation', e => {
-        if (e.beta > 10) {
-            const dec = e.beta + (90 - latitude) * (sourward ? -1 : 1);
-
-            put('dec', dec.toFixed(1));
-        }
-    });
-
-    setInterval(() => {
-        const t = new Date();
-        const pad = n => (n < 10 ? '0' : '') + n;
-        const h = t.getHours()
-        const time = [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
-
-        put('time', time);
-        stars.purge(t);
-    }, 1000);
-</script>

@@ -1,10 +1,15 @@
 stars = {};
 
+const pad = n => (n < 10 ? '0' : '') + n;
+
 function formatTime(t) {
-    const pad = n => (n < 10 ? '0' : '') + n;
     const h = t.getHours()
 
-    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
+    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes())].join(':');
+}
+
+function formatRa(ra) {
+    return [Math.floor(ra / 15), pad(0), pad(0)].join(' ');
 }
 
 function afterdark(t) {
@@ -54,6 +59,7 @@ stars.load = function () {
             }
 
             star.time = getStarTime(ra);
+            star.ra = ra;
             star.dec = dec;
 
             if (star.time.getDate() !== today && dec + latitude > 90) {
@@ -101,12 +107,37 @@ stars.load = function () {
                 addTd(star.name);
                 addTd(star.con);
                 addTd(star.mag);
+                addTd(formatRa(star.ra));
                 addTd(star.dec.toFixed(1));
                 addTd(formatTime(time));
 
                 document.getElementById('stars').appendChild(tr);
             }
         });
+
+
+        let southward = true;
+
+        function put(name, value) {
+            document.getElementById(name).innerHTML = value;
+        }
+
+        function toggleDirection() {
+            southward = !southward;
+        }
+
+        window.addEventListener('deviceorientation', e => {
+            if (e.beta > 10) {
+                const dec = e.beta + (90 - latitude) * (sourward ? -1 : 1);
+
+                put('dec', dec.toFixed(1));
+            }
+        });
+
+        setInterval(() => {
+            put('sid', formatRa(localSiderealDegrees(new Date(), longitude)));
+            stars.purge(t);
+        }, 1000);
     });
 
     stars.purge();
