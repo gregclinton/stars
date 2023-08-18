@@ -20,7 +20,7 @@ function formatRa(ra) {
     const m = floor(ra * 4 % 60);
     const s = floor(ra * 240 % 60);
 
-    return [pad(h), pad(m), pad(s)].join(' ');
+    return [pad(h), pad(m), pad(s)].join(':');
 }
 
 function afterdark(t) {
