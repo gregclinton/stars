@@ -8,8 +8,18 @@ function formatTime(t) {
 }
 
 function afterdark(t) {
-    const month = new Date().getMonth() + 1;
-    return t.getHours() > month < 3 ? 17 : month < 7 ? 18 : month < 9 ? 19 : month < 11 ? 18 : 17;
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = today.getMonth();
+    const d = today.getDate();
+    const sunset = new Date([m + 1, d, y].join('/') + ' ' + [
+        '16:55', '17:24', '17:50', '19:14', '19:37', '20:00',
+        '20:09', '19:54', '19:19', '19:13', '18:01', '16:44'
+    ][m]);
+
+    const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
+
+    return t > dark;
 }
 
 stars.load = function () {
