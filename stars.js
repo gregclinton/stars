@@ -34,6 +34,8 @@ function afterdark(t) {
         sunsets (all times dst) mar 21: 19:06 jun 21: 20:08 sep 21: 18:52 dec 21: 17:48
 
         17:48 to 20:08 is 140 minutes
+
+        https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400
     */
     const mar21 = new Date([3, 21, y].join('/'))
     const daysSinceMar21 = (today - mar21) / 1000 / 60 / 60 / 24;
@@ -54,6 +56,7 @@ stars.load = function () {
         const lst = localSiderealDegrees(now, longitude);
         let stars = [];
 
+        getSunset(latitude, longitude);
 
         function addStar(name, con, mag, ra2000, dec2000) {
             const star = {
