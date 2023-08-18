@@ -16,10 +16,10 @@ stars.load = function () {
         const lst = localSiderealDegrees(now, longitude);
         let stars = [];
 
-        function addStar(name, constellation, mag, ra2000, dec2000) {
+        function addStar(name, con, mag, ra2000, dec2000) {
             const star = {
                 name: name,
-                constellation: constellation,
+                con: con,
                 mag: (mag * 1).toFixed(1),
             };
             const [ra, dec] = precess(ra2000, dec2000);
@@ -51,23 +51,16 @@ stars.load = function () {
             const names = bayerLookup[hipno];
 
             if (names) {
-                const [name, constellation] = names;
+                const [name, con] = names;
 
-                addStar(name, constellation, mag, ra, dec);
+                addStar(name, con, mag, ra, dec);
             }
         });
 
         messiers.forEach(line => {
-            const name = line.substring(0, 5);
-            const constellation = line.substring(6, 9);
-            const mag = line.substring(10, 13);
-            const [h, m, s] = line.substring(14, 28).split(' ');
-            const chomp = s => s.substring(0, s.length - 1);
-            const ra = 15 * (1 * chomp(h) + chomp(m) / 60 + chomp(s) / 3600);
-            const [degrees, minutes] = line.substring(29).split(' ');
-            const dec = degrees.substring(0, 3) * 1 + minutes.substring(0, 2) / 60;
+            const [name, con, ra, dec, mag] = line.split(',');
 
-            addStar(name, constellation, mag, ra, dec);
+            addStar(name, con, mag, ra, dec);
         });
 
         stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
@@ -86,7 +79,7 @@ stars.load = function () {
                 }
 
                 addTd(star.name);
-                addTd(star.constellation);
+                addTd(star.con);
                 addTd(star.mag);
                 addTd(star.direction);
                 addTd(Math.round(star.tilt));
