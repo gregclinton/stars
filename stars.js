@@ -15,9 +15,9 @@ function afterdark(t) {
     const d = today.getDate();
 
     /*
-        sunsets (all times dst) mar 21: 7:06 jun 21: 8:08 sep 21: 6:52 dec 21: 5:48
+        sunsets (all times dst) mar 21: 19:06 jun 21: 20:08 sep 21: 18:52 dec 21: 17:48
 
-        5:48 to 8:08 is 140 minutes
+        17:48 to 20:08 is 140 minutes
     */
     const sunsetMar21 = new Date([m + 1, d, y].join('/') + ' 19:00');
     const mar21 = new Date([3, 21, y].join('/'))
