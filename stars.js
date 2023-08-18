@@ -132,11 +132,9 @@ stars.load = function () {
         }
 
         window.addEventListener('deviceorientation', e => {
-            if (e.beta > 10) {
-                const dec = southward ? e.beta - 90 + latitude : 90 - Math.abs(latitude - e.beta);
+            const dec = southward ? e.beta - 90 + latitude : 90 - Math.abs(latitude - e.beta);
 
-                put('dec', dec.toFixed(1));
-            }
+            put('dec', dec.toFixed(1));
         });
 
         setInterval(() => put('sid', formatRa(localSiderealDegrees(new Date(), longitude))), 1000);
