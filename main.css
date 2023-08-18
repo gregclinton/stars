@@ -9,7 +9,7 @@ body
 
 #stars
 {
-    font-size: 16;
+    font-size: 20;
     margin-top: 30;
 }
 
@@ -18,10 +18,10 @@ body
     padding-right: 10px;
 }
 
-table tr td:first-child,
-table tr td:nth-child(3),
-table tr td:nth-child(4),
-table tr td:nth-child(5)
+#stars td:first-child,
+#stars td:nth-child(3),
+#stars td:nth-child(4),
+#stars td:nth-child(5)
 {
     text-align: right;
 }
