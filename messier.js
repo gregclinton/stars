@@ -1,4 +1,5 @@
 // http://simbad.cds.unistra.fr
+// http://astropixels.com/messier/messiercat.html
 
 const messiers = `
 M103,Cas,23.3390,60.6590,7.4
