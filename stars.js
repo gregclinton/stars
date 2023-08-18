@@ -1,5 +1,11 @@
 stars = {};
 
+let southward = true;
+
+function toggleDirection() {
+    southward = !southward;
+}
+
 const pad = n => (n < 10 ? '0' : '') + n;
 
 function formatTime(t) {
@@ -121,15 +127,8 @@ stars.load = function () {
             }
         });
 
-
-        let southward = true;
-
         function put(name, value) {
             document.getElementById(name).innerHTML = value;
-        }
-
-        function toggleDirection() {
-            southward = !southward;
         }
 
         window.addEventListener('deviceorientation', e => {
