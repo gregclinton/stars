@@ -9,7 +9,12 @@ function formatTime(t) {
 }
 
 function formatRa(ra) {
-    return [Math.floor(ra / 15), pad(0), pad(0)].join(' ');
+    const floor = Math.floor;
+    const h = floor(ra / 15);
+    const m = floor(12);
+    const s = floor(ra % 60);
+
+    return [pad(h), pad(m), pad(s)].join(' ');
 }
 
 function afterdark(t) {
@@ -43,6 +48,7 @@ stars.load = function () {
         const lst = localSiderealDegrees(now, longitude);
         let stars = [];
 
+    
         function addStar(name, con, mag, ra2000, dec2000) {
             const star = {
                 name: name,
