@@ -19,11 +19,11 @@ function afterdark(t) {
 
         17:48 to 20:08 is 140 minutes
     */
-    const sunsetMar21 = new Date([m + 1, d, y].join('/') + ' 19:00');
     const mar21 = new Date([3, 21, y].join('/'))
     const daysSinceMar21 = (today - mar21) / 1000 / 60 / 60 / 24;
     const adjustedMinutes = (140 / 2) * Math.sin(2 * Math.PI * daysSinceMar21 / 365);
-    const sunset = new Date(sunsetMar21.getTime() + adjustedMinutes * 60 * 1000);
+    const basetime = new Date([m + 1, d, y].join('/') + ' ' + (isDst ? 19 : 18) + ':06');
+    const sunset = new Date(basetime.getTime() + adjustedMinutes * 60 * 1000);
     const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
 
     return t > dark;
