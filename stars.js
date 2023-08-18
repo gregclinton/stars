@@ -63,7 +63,7 @@ stars.load = function () {
             addStar(name, con, mag, ra, dec);
         });
 
-        stars.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
+        stars.sort((a, b) => a.time - b.time);
 
         stars.forEach(star => {
             const time = star.time;
