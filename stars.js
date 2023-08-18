@@ -9,14 +9,20 @@ function formatTime(t) {
 
 function afterdark(t) {
     const today = new Date();
+    const isDst = today.getTimezoneOffset() / 60 === 7;
     const y = today.getFullYear();
     const m = today.getMonth();
     const d = today.getDate();
-    const sunset = new Date([m + 1, d, y].join('/') + ' ' + [
-        '16:55', '17:24', '17:50', '19:14', '19:37', '20:00',
-        '20:09', '19:54', '19:19', '19:13', '18:01', '16:44'
-    ][m]);
 
+    /*
+        sunsets (all times dst) mar 21: 7:06 jun 21: 8:08 sep 21: 6:52 dec 21: 5:48
+
+        5:48 to 8:08 is 140 minutes
+    */
+    const sunsetMar21 = new Date([m + 1, d, y].join('/') + ' 7:00');
+    const daysSinceMar21 = 150;
+    const adjustedMinutes = (140 / 2) * Math.sin(2 * Math.PI * daysSinceMar21 / 365);
+    const sunset = new Date(sunsetMar21.getTime() + adjustedMinutes * 60 * 1000);
     const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
 
     return t > dark;
