@@ -7,6 +7,11 @@ function formatTime(t) {
     return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
+function afterdark(t) {
+    const month = new Date().getMonth() + 1;
+    return t.getHours() > month < 3 ? 17 : month < 7 ? 18 : month < 9 ? 19 : month < 11 ? 18 : 17;
+}
+
 stars.load = function () {
     document.getElementById('allow').remove();
 
@@ -67,9 +72,8 @@ stars.load = function () {
 
         stars.forEach(star => {
             const time = star.time;
-            const hour = time.getHours();
 
-            if (hour > 17 && hour < 22 && time.getDate() === today) {
+            if (afterdark(time) && time.getHours() < 22 && time.getDate() === today) {
                 const tr = document.createElement('tr');
 
                 function addTd(value) {
@@ -96,7 +100,7 @@ stars.load = function () {
 stars.purge = function() {
     const t = new Date();
 
-    if (t.getHours() > 17) {
+    if (afterdark(t) > 17) {
         const time = formatTime(t);
         let keepGoing = true;
 
