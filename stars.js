@@ -133,7 +133,7 @@ stars.load = function () {
 
         window.addEventListener('deviceorientation', e => {
             if (e.beta > 10) {
-                const dec = e.beta - (90 - latitude) * (southward ? 1 : -1);
+                const dec = southward ? e.beta - 90 + latitude : 90 - Math.abs(latitude - e.beta);
 
                 put('dec', dec.toFixed(1));
             }
