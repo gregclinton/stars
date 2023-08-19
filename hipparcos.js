@@ -1,4 +1,3 @@
-
 /*
     https://dc.zah.uni-heidelberg.de/__system__/adql/query/form
 
@@ -9,7 +8,7 @@
     usage:
     hipparcos.data.forEach(row => {
         [hipno, mag, ra, dec] = row.split[','];
-    });    
+    });
 */
 
 const endpoint = "https://irsa.ipac.caltech.edu/TAP/sync"
@@ -18,7 +17,7 @@ const url = endpoint + '?query=' + query + '&format=csv';
 console.log(url);
 
 const hipparcos = {
-    data: 
+    data:
 `
 112724,3.6704,342.42046735,66.20071089
 105199,2.5141,319.64408982,62.58545529
