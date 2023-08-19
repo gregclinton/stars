@@ -5,10 +5,10 @@
 <meta name="viewport" content="user-scalable=no,width=device-width" />
 
 <body>
-    <button id="allow" onclick="stars.load()">allow</button>
+    <button id="allow" onclick="run()">allow</button>
     <div>
-        <span id="sid"></span>
-        <span id="dec" onclick="toggleDirection()"></span>
+        <span id="time"></span>
+        <span id="tilt" onclick="toggleDirection()"></span>
         <table>
             <tbody id="stars"/>
         </table>
@@ -25,3 +25,20 @@
 <script src="messier.js"></script>
 <script src="sunset.js"></script>
 <script src="stars.js"></script>
+
+<script>
+    const put = (name, value) => document.getElementById(name).innerHTML = value;
+
+    window.addEventListener('deviceorientation', e => put('tilt', (e.beta * 1).toFixed(1)));
+    setInterval(() => put('time', formatTime(new Date())), 1000);
+
+    function run() {
+        document.getElementById('allow').remove();
+
+        getGeoLocation((latitude, longitude) => {
+            getSunset(latitude, longitude, sunset => {
+                stars.add(latitude, longitude, sunset);
+            });
+        });
+    }
+</script>
