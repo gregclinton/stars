@@ -33,11 +33,7 @@ stars.load = function () {
         let stars = [];
 
         getSunset(latitude, longitude, sunset => {
-            function afterdark(t) {
-                const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
-
-                return t > dark;
-            }
+            const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
 
             function addStar(name, con, mag, ra2000, dec2000) {
                 const star = {
@@ -91,7 +87,7 @@ stars.load = function () {
             stars.forEach(star => {
                 const time = star.time;
 
-                if (afterdark(time) && time.getHours() < 22 && time.getDate() === today) {
+                if (time > dark && time.getHours() < 22 && time.getDate() === today) {
                     const tr = document.createElement('tr');
 
                     function addTd(value) {
@@ -126,7 +122,7 @@ stars.load = function () {
             function purge() {
                 const t = new Date();
 
-                if (afterdark(t)) {
+                if (t > dark) {
                     const time = formatTime(t);
                     let keepGoing = true;
 

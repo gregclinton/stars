@@ -15,6 +15,7 @@ function getSunset(lat, lon, fn) {
             fn(sunset);
         }
     };
+
     xhttp.open('GET', 'https://api.sunrise-sunset.org/json?lat=' + lat + '&lng=' + lon, true);
     xhttp.send();
 }
