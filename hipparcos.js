@@ -9,12 +9,10 @@
     hipparcos.data.forEach(row => {
         [hipno, mag, ra, dec] = row.split[','];
     });
-*/
 
-const endpoint = "https://irsa.ipac.caltech.edu/TAP/sync"
-const query = "select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt<6+and+ra>8.1+and+ra<8.2";
-const url = endpoint + '?query=' + query + '&format=csv';
-console.log(url);
+    https://gea.esac.esa.int/tap-server/tap/sync?format=csv&REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT+TOP+5+source_id,ra,dec+FROM+gaiadr1.gaia_source
+    https://irsa.ipac.caltech.edu/TAP/sync?format=csv&query=select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt%3C6+and+ra%3E8.1+and+ra%3C8.2
+*/
 
 const hipparcos = {
     data:
