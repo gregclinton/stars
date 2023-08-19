@@ -2,10 +2,6 @@ stars = {};
 
 let southward = true;
 
-function toggleDirection() {
-    southward = !southward;
-}
-
 const pad = n => (n < 10 ? '0' : '') + n;
 
 function formatTime(t) {
@@ -31,11 +27,7 @@ stars.add = function (latitude, longitude, sunset) {
     let stars = [];
 
     function addStar(name, con, mag, ra2000, dec2000) {
-        const star = {
-            name: name,
-            con: con,
-            mag: (mag * 1).toFixed(1),
-        };
+        const star = { name: name, con: con, mag: mag };
         const [ra, dec] = precess(ra2000, dec2000);
 
         // https://astronomy.stackexchange.com/questions/29471/how-to-convert-sidereal-time-to-local-time
@@ -46,15 +38,16 @@ stars.add = function (latitude, longitude, sunset) {
         }
 
         star.time = getStarTime(ra);
-        star.ra = ra;
-        star.dec = dec;
+        star.ra = ra2000;
+        star.dec = dec2000;
+        star.direction = dec > latitude ? 'N' : 'S';
+        star.tilt = 90 - Math.abs(dec - latitude);
 
         if (star.time.getDate() !== today && dec + latitude > 90) {
             // star is below polaris and above horizon
             star.time = getStarTime((ra + 180) % 360);
             star.tilt = dec + latitude - 90;
         }
-
         stars.push(star);
     }
 
@@ -67,14 +60,14 @@ stars.add = function (latitude, longitude, sunset) {
         if (names) {
             const [name, con] = names;
 
-            addStar(name, con, mag, ra, dec);
+            addStar(name, con, mag * 1, ra * 1, dec * 1);
         }
     });
 
     messiers.forEach(line => {
         const [name, con, ra, dec, mag] = line.split(',');
 
-        addStar(name, con, mag, ra, dec);
+        addStar(name, con, mag * 1, ra * 1, dec * 1);
     });
 
     stars.sort((a, b) => a.time - b.time);
@@ -93,10 +86,12 @@ stars.add = function (latitude, longitude, sunset) {
 
             addTd(star.name);
             addTd(star.con);
-            addTd(star.mag);
+            addTd(star.mag.toFixed(1));
             addTd(formatRa(star.ra));
             addTd(star.dec.toFixed(1));
-            addTd(formatTime(time));
+            addTd(star.direction);
+            addTd(star.tilt.toFixed(1));
+            addTd(formatTime(star.time));
 
             document.getElementById('stars').appendChild(tr);
         }
