@@ -9,8 +9,13 @@
     usage:
     hipparcos.data.forEach(row => {
         [hipno, mag, ra, dec] = row.split[','];
-    });
+    });    
 */
+
+const endpoint = "https://irsa.ipac.caltech.edu/TAP/sync"
+const query = "select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt<6+and+ra>8.1+and+ra<8.2";
+const url = endpoint + '?query=' + query + '&format=csv';
+console.log(url);
 
 const hipparcos = {
     data: 
