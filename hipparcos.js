@@ -18,8 +18,11 @@
 
     curl "https://irsa.ipac.caltech.edu/tap/sync?format=csv&query=select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt%3C4+and+ra%3E8.1+and+ra%3C8.2"
 
-    curl "https://simbad.u-strasbg.fr/simbad/sim-tap/sync?format=csv&request=doquery&lang=adql&query=select+top+5+hpx,ra,dec+from+basic+where+ra%3E8.01+and+ra%3C8.02"
-*/
+    https://simbad.u-strasbg.fr/simbad/tap/help/adqlHelp.html
+    curl "https://simbad.u-strasbg.fr/simbad/sim-tap/sync?format=csv&request=doquery&lang=adql&query=select+top+5+main_id,hpx,ra,dec+from+basic+where+ra%3E8.01+and+ra%3C8.02"
+    curl "https://simbad.u-strasbg.fr/simbad/sim-tap/sync?format=csv&request=doquery&lang=adql&query=select+top+5+hpx,main_id+from+basic+where+hpx+%3C44000+and+hpx%3E0"
+
+    */
 
 const hipparcos = {
     data:
