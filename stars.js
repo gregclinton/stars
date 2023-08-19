@@ -80,6 +80,7 @@ stars.add = function (latitude, longitude, sunset) {
             addTd(star.con);
             addTd(star.mag.toFixed(1));
             const fmt = n => pad(Math.floor(n));
+            const ra = star.ra;
             addTd([fmt(ra / 15), fmt(ra * 4 % 60), fmt(ra * 240 % 60)].join(':'));
             addTd(star.dec.toFixed(1));
             addTd(star.direction);
