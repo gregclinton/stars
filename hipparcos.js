@@ -10,6 +10,7 @@
         [hipno, mag, ra, dec] = row.split[','];
     });
 
+    https://gea.esac.esa.int/tap-server/tap/tables
     https://gea.esac.esa.int/tap-server/tap/sync?format=csv&request=doquery&lang=adql&query=select+hip,vmag,ra,de+from+public.hipparcos+where+vmag%3C4+and+ra%3E0.0+and+ra%3C9.0
     https://irsa.ipac.caltech.edu/tap/sync?format=csv&query=select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt%3C6+and+ra%3E8.1+and+ra%3C8.2
 */
