@@ -10,9 +10,15 @@
         [hipno, mag, ra, dec] = row.split[','];
     });
 
+    curl "https://dc.zah.uni-heidelberg.de/__system__/tap/run/sync?lang=ADQL&format=csv&query=select+hipno,hpmag,ra,dec+from+hipparcos.main+where+hpmag%3C4+and+dec%3E-45"
+ 
     https://gea.esac.esa.int/tap-server/tap/tables
-    https://gea.esac.esa.int/tap-server/tap/sync?format=csv&request=doquery&lang=adql&query=select+hip,vmag,ra,de+from+public.hipparcos+where+vmag%3C4+and+ra%3E0.0+and+ra%3C9.0
-    https://irsa.ipac.caltech.edu/tap/sync?format=csv&query=select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt%3C4+and+ra%3E8.1+and+ra%3C8.2
+    curl "https://gea.esac.esa.int/tap-server/tap/sync?format=csv&request=doquery&lang=adql&query=select+hip,vmag,ra,de+from+public.hipparcos+where+vmag%3C4+and+ra%3E0.0+and+ra%3C9.0"
+
+
+    curl "https://irsa.ipac.caltech.edu/tap/sync?format=csv&query=select+ra,dec,vr_m_opt+from+fp_psc+where+vr_m_opt%3C4+and+ra%3E8.1+and+ra%3C8.2"
+
+    curl "https://simbad.u-strasbg.fr/simbad/sim-tap/sync?format=csv&request=doquery&lang=adql&query=select+top+5+hpx,ra,dec+from+basic+where+ra%3E8.01+and+ra%3C8.02"
 */
 
 const hipparcos = {
