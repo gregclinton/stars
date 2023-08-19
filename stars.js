@@ -27,14 +27,13 @@ stars.load = function () {
     document.getElementById('allow').remove();
 
     getGeoLocation((latitude, longitude) => {
-        const now = new Date();
-        const today = now.getDate();
-        const lst = localSiderealDegrees(now, longitude);
-        let stars = [];
-
         getSunset(latitude, longitude, sunset => {
             const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
-
+            const now = new Date();
+            const today = now.getDate();
+            const lst = localSiderealDegrees(now, longitude);
+            let stars = [];
+    
             function addStar(name, con, mag, ra2000, dec2000) {
                 const star = {
                     name: name,
