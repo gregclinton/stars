@@ -67,7 +67,7 @@ stars.add = function (latitude, longitude, sunset) {
         const time = star.time;
 
         if (time > dark && time.getHours() < 22 && time.getDate() === today) {
-            const tr = document.createElement('tr');
+            let tr = document.createElement('tr');
 
             function addTd(value) {
                 const td = document.createElement('td');
@@ -75,6 +75,15 @@ stars.add = function (latitude, longitude, sunset) {
                 tr.appendChild(td);
             }
 
+            // S 3.4 N 53.9 20
+            addTd(star.name[0] === 'M' ? 'M' : 'S');
+            addTd(star.mag.toFixed(1));
+            addTd(star.direction);
+            addTd(star.tilt.toFixed(1));
+            addTd(Math.floor((star.time - new Date()) / 1000));
+            document.getElementById('countdown').appendChild(tr);
+
+            tr = document.createElement('tr');
 
             addTd(star.name);
             addTd(star.con);
