@@ -10,15 +10,6 @@ function formatTime(t) {
     return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
-function formatRa(ra) {
-    const floor = Math.floor;
-    const h = floor(ra / 15);
-    const m = floor(ra * 4 % 60);
-    const s = floor(ra * 240 % 60);
-
-    return [pad(h), pad(m), pad(s)].join(':');
-}
-
 stars.add = function (latitude, longitude, sunset) {
     const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
     const now = new Date();
@@ -84,10 +75,12 @@ stars.add = function (latitude, longitude, sunset) {
                 tr.appendChild(td);
             }
 
+
             addTd(star.name);
             addTd(star.con);
             addTd(star.mag.toFixed(1));
-            addTd(formatRa(star.ra));
+            const fmt = n => pad(Math.floor(n));
+            addTd([fmt(ra / 15), fmt(ra * 4 % 60), fmt(ra * 240 % 60)].join(':'));
             addTd(star.dec.toFixed(1));
             addTd(star.direction);
             addTd(star.tilt.toFixed(1));
