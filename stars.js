@@ -56,7 +56,9 @@ stars.load = function () {
         const lst = localSiderealDegrees(now, longitude);
         let stars = [];
 
-        getSunset(latitude, longitude);
+        getSunset(latitude, longitude, sunset => {
+            console.log(sunset);
+        });
 
         function addStar(name, con, mag, ra2000, dec2000) {
             const star = {
