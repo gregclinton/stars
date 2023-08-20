@@ -3,12 +3,11 @@ stars = {};
 let southward = true;
 
 const pad = n => (n < 10 ? '0' : '') + n;
-const times = [];
 
 function formatTime(t) {
     const h = t.getHours()
 
-    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes())].join(':');
+    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
 stars.add = function (latitude, longitude, sunset) {
@@ -81,8 +80,6 @@ stars.add = function (latitude, longitude, sunset) {
             addTd(star.tilt.toFixed(1));
             addTd(formatTime(star.time));
 
-            times.push(star.time);
-
             document.getElementById('stars').appendChild(tr);
         }
     });
@@ -91,26 +88,17 @@ stars.add = function (latitude, longitude, sunset) {
         const t = new Date();
 
         if (t > dark) {
-            const time = formatTime(t).substring(0, 5);
+            const time = formatTime(t);
             let keepGoing = true;
 
             while (keepGoing) {
                 const tr = document.getElementById("stars").firstElementChild;
-                const e = tr.lastElementChild;
-                const td = e.innerHTML.substring(0, 5);
 
                 keepGoing = false;
 
-                if (tr && (td.indexOf(':') !== -1 || td * 1 <= 0) && td < time) {
+                if (tr && tr.lastElementChild.innerHTML.substring(0, 5) < time) {
                     tr.remove();
-                    times.shift();
                     keepGoing = true;
-                } else {
-                    const remaining = Math.floor((times[0] - new Date()) / 1000);
-
-                    if (remaining < 30)  {
-                        e.innerHTML = remaining > 0 ? remaining : '';
-                    }
                 }
             }
         }
