@@ -96,7 +96,7 @@ stars.add = function (latitude, longitude, sunset) {
 
                 keepGoing = false;
 
-                if (tr && tr.lastElementChild.innerHTML.substring(0, 5) < time) {
+                if (tr && tr.lastElementChild.innerHTML.substring(0, 5) < time.substring(0, 5)) {
                     tr.remove();
                     keepGoing = true;
                 }
