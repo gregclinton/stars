@@ -20,8 +20,6 @@ body
 
 #stars td:first-child,
 #stars td:nth-child(3),
-#stars td:nth-child(4),
-#stars td:nth-child(5)
 {
     text-align: right;
 }
