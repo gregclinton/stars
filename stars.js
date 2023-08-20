@@ -75,9 +75,9 @@ stars.add = function (latitude, longitude, sunset) {
 
             addTd(star.name);
             addTd(star.con);
-            addTd(star.mag.toFixed(1));
-            addTd(star.direction);
-            addTd(star.tilt.toFixed(1));
+            // addTd(star.mag.toFixed(1));
+            // addTd(star.direction);
+            // addTd(star.tilt.toFixed(1));
             addTd(formatTime(star.time));
 
             document.getElementById('stars').appendChild(tr);
