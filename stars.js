@@ -3,6 +3,7 @@ stars = {};
 let southward = true;
 
 const pad = n => (n < 10 ? '0' : '') + n;
+const times = [];
 
 function formatTime(t) {
     const h = t.getHours()
@@ -29,6 +30,8 @@ stars.add = function (latitude, longitude, sunset) {
         }
 
         star.time = getStarTime(ra);
+        times.push(star.time);
+
         star.direction = dec > latitude ? 'N' : 'S';
         star.tilt = 90 - Math.abs(dec - latitude);
 
@@ -93,11 +96,15 @@ stars.add = function (latitude, longitude, sunset) {
 
             while (keepGoing) {
                 const tr = document.getElementById("stars").firstElementChild;
+                const e = tr.lastElementChild;
                 keepGoing = false;
 
-                if (tr && tr.lastElementChild.innerHTML.substring(0, 5) < time.substring(0, 5)) {
+                if (tr && e.innerHTML.substring(0, 5) < time.substring(0, 5)) {
                     tr.remove();
+                    times.shift();
                     keepGoing = true;
+                } else {
+                    e.innerHTML = Math.floor((new Date() - times[0]) / 1000);
                 }
             }
         }
