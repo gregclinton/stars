@@ -30,8 +30,6 @@ stars.add = function (latitude, longitude, sunset) {
         }
 
         star.time = getStarTime(ra);
-        times.push(star.time);
-
         star.direction = dec > latitude ? 'N' : 'S';
         star.tilt = 90 - Math.abs(dec - latitude);
 
@@ -83,6 +81,8 @@ stars.add = function (latitude, longitude, sunset) {
             addTd(star.tilt.toFixed(1));
             addTd(formatTime(star.time));
 
+            times.push(star.time);
+
             document.getElementById('stars').appendChild(tr);
         }
     });
@@ -91,20 +91,22 @@ stars.add = function (latitude, longitude, sunset) {
         const t = new Date();
 
         if (t > dark) {
-            const time = formatTime(t);
+            const time = formatTime(t).substring(0, 5);
             let keepGoing = true;
 
             while (keepGoing) {
                 const tr = document.getElementById("stars").firstElementChild;
                 const e = tr.lastElementChild;
+                const td = e.innerHTML.substring(0, 5);
+
                 keepGoing = false;
 
-                if (tr && e.innerHTML.substring(0, 5) < time.substring(0, 5)) {
+                if (tr && td.indexOf(':') !== -1 && td < time) {
                     tr.remove();
                     times.shift();
                     keepGoing = true;
                 } else {
-                    e.innerHTML = Math.floor((new Date() - times[0]) / 1000);
+                    e.innerHTML = Math.floor((times[0] - new Date()) / 1000);
                 }
             }
         }
