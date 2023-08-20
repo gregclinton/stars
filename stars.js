@@ -101,12 +101,16 @@ stars.add = function (latitude, longitude, sunset) {
 
                 keepGoing = false;
 
-                if (tr && td.indexOf(':') !== -1 && td < time) {
+                if (tr && (td.indexOf(':') !== -1 || td * 1 < 0) && td < time) {
                     tr.remove();
                     times.shift();
                     keepGoing = true;
                 } else {
-                    e.innerHTML = Math.floor((times[0] - new Date()) / 1000);
+                    const remaining = Math.flooe((times[0] - new Date()) / 1000);
+
+                    if (remaining < 30) {
+                        e.innerHTML = remaining;
+                    }
                 }
             }
         }
