@@ -1,6 +1,7 @@
 telescope perpendicular to axis
-axis horizontal (use digital level)
-axis east west (telescope north south when horizontal -- use star near horizon)
+axis approximately east west
+axis horizontal (use thread plumb line)
+axis accurately east west (telescope north south when horizontal -- use star near horizon)
 all angles must be within 0.05 degrees (about 1 mm over 1 m) so target appears in middle tenth of half degree field
 get target star or galaxy ra and dec J2000 coordinates from wikipedia
 adjust J2000 coordinates using precession calculator
