@@ -7,7 +7,7 @@ const pad = n => (n < 10 ? '0' : '') + n;
 function formatTime(t) {
     const h = t.getHours()
 
-    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
+    return [h - (h > 12 ? 12 : 0), pad(t.getMinutes())].join(':');
 }
 
 stars.add = function (latitude, longitude, sunset) {
@@ -29,8 +29,6 @@ stars.add = function (latitude, longitude, sunset) {
         }
 
         star.time = getStarTime(ra);
-        star.ra = ra2000;
-        star.dec = dec2000;
         star.direction = dec > latitude ? 'N' : 'S';
         star.tilt = 90 - Math.abs(dec - latitude);
 
@@ -75,23 +73,9 @@ stars.add = function (latitude, longitude, sunset) {
                 tr.appendChild(td);
             }
 
-            // S 3.4 N 53.9 20
-            addTd(star.name[0] === 'M' ? 'M' : 'S');
-            addTd(star.mag.toFixed(1));
-            addTd(star.direction);
-            addTd(star.tilt.toFixed(1));
-            addTd(Math.floor((star.time - new Date()) / 1000));
-            document.getElementById('countdown').appendChild(tr);
-
-            tr = document.createElement('tr');
-
             addTd(star.name);
             addTd(star.con);
             addTd(star.mag.toFixed(1));
-            const fmt = n => pad(Math.floor(n));
-            const ra = star.ra;
-            addTd([fmt(ra / 15), fmt(ra * 4 % 60), fmt(ra * 240 % 60)].join(':'));
-            addTd(star.dec.toFixed(1));
             addTd(star.direction);
             addTd(star.tilt.toFixed(1));
             addTd(formatTime(star.time));
