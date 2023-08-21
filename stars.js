@@ -49,7 +49,9 @@ stars.add = function (latitude, longitude, sunset) {
         if (names) {
             const [name, con] = names;
 
-            addStar(name, con, mag * 1, ra * 1, dec * 1);
+            if (mag * 1 < 3) {
+                addStar(name, con, mag * 1, ra * 1, dec * 1);
+            }
         }
     });
 
@@ -64,7 +66,7 @@ stars.add = function (latitude, longitude, sunset) {
     stars.forEach(star => {
         const time = star.time;
 
-        if (star.mag < 3 && time > dark && time.getHours() < 22 && time.getDate() === today) {
+        if (time > dark && time.getHours() < 22 && time.getDate() === today) {
             let tr = document.createElement('tr');
 
             function addTd(value) {
