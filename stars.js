@@ -49,7 +49,7 @@ stars.add = function (latitude, longitude, sunset) {
         if (names) {
             const [name, con] = names;
 
-            if (mag * 1 < 3) {
+            if (mag * 1 < 4) {
                 addStar(name, con, mag * 1, ra * 1, dec * 1);
             }
         }
@@ -77,34 +77,12 @@ stars.add = function (latitude, longitude, sunset) {
 
             addTd(star.name);
             addTd(star.con);
-            // addTd(star.mag.toFixed(1));
-            // addTd(star.direction);
-            // addTd(star.tilt.toFixed(1));
+            addTd(star.mag.toFixed(1));
+            addTd(star.direction);
+            addTd(star.tilt.toFixed(1));
             addTd(formatTime(star.time));
 
             document.getElementById('stars').appendChild(tr);
         }
     });
-
-    function purge() {
-        const t = new Date();
-
-        if (t > dark) {
-            const time = formatTime(t);
-            let keepGoing = true;
-
-            while (keepGoing) {
-                const tr = document.getElementById("stars").firstElementChild;
-
-                keepGoing = false;
-
-                if (tr && tr.lastElementChild.innerHTML.substring(0, 5) < time.substring(0, 5)) {
-                    tr.remove();
-                    keepGoing = true;
-                }
-            }
-        }
-    };
-
-    setInterval(() => purge(new Date()), 1000);
 };
