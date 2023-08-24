@@ -30,7 +30,7 @@
     const put = (name, value) => document.getElementById(name).innerHTML = value;
 
     window.addEventListener('deviceorientation', e => {
-        put('tilt', (e.beta * 1).toFixed(Math.abs(e.beta) < 1 ? 2 : 1));
+        put('tilt', (e.gamma * 1 + 90).toFixed(1));
     });
 
     setInterval(() => put('time', formatTime(new Date())), 1000);
