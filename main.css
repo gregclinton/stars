@@ -24,3 +24,8 @@ body
 {
     text-align: right;
 }
+
+#countdown
+{
+    font-size: 200;
+}

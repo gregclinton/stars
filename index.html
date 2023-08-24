@@ -5,6 +5,7 @@
 <meta name="viewport" content="user-scalable=no,width=device-width" />
 
 <body>
+    <div id="countdown" onclick="targetTime = false"></div>
     <button id="allow" onclick="run()">allow</button>
     <div>
         <span id="time"></span>
@@ -28,12 +29,16 @@
 
 <script>
     const put = (name, value) => document.getElementById(name).innerHTML = value;
+    let targetTime = false;
 
     window.addEventListener('deviceorientation', e => {
         put('tilt', (e.gamma * 1).toFixed(1));
     });
 
-    setInterval(() => put('time', formatTime(new Date())), 1000);
+    setInterval(() => {
+        put('time', formatTime(new Date()));
+        put('countdown', targetTime ? Math.abs(Math.floor((targetTime - new Date()) / 1000)) : '');
+    }, 1000);
 
     function run() {
         document.getElementById('allow').remove();

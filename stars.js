@@ -83,6 +83,8 @@ stars.add = function (latitude, longitude, sunset) {
             addTd(formatTime(star.time));
 
             document.getElementById('stars').appendChild(tr);
+
+            tr.setAttribute('onclick', "targetTime = " + time.getTime());
         }
     });
 };
