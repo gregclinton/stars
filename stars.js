@@ -49,7 +49,7 @@ stars.add = function (latitude, longitude, sunset) {
         if (names) {
             const [name, con] = names;
 
-            if (mag * 1 < 4) {
+            if (mag * 1 < 3) {
                 addStar(name, con, mag * 1, ra * 1, dec * 1);
             }
         }
