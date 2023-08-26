@@ -44,12 +44,15 @@
 
     window.addEventListener('deviceorientation', e => {
         const line = document.getElementById('tilt');
-        const y = 100 + (e.gamma - targetTilt) * 20;
+        const abs = Math.abs;
+        const near = target => abs(e.gamma - target) < 2;
+        const target = near(targetTilt) ? targetTilt : near(0) ? 0 : near(90) ? 90 : 9999;
+        const y = 100 + (e.gamma - target) * 20;
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
 
-        document.getElementById('tilt').style.display = targetTilt ? 'block' : 'none';
+        document.getElementById('tilt').style.display = near(target) ? 'block' : 'none';
     });
 
     setInterval(() => {
