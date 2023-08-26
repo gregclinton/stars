@@ -10,9 +10,9 @@
     <div>
         <span id="time"></span>
         <div>
-            <svg width="200", height="40">
-                <line x1="0" y1="20" x2="200" y2="20" style="stroke:#555;stroke-width:0.5" />
-                <line x1="0" y1="20" x2="200" y2="20" style="stroke:#555;stroke-width:0.5" id="tilt" />
+            <svg width="200", height="200">
+                <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" />
+                <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" id="tilt" />
             </svg>
         </div>
         <table>
@@ -39,7 +39,7 @@
 
     window.addEventListener('deviceorientation', e => {
         const line = document.getElementById('tilt');
-        const y = 20 + (e.gamma - targetTilt) * 20;
+        const y = 100 + (e.gamma - targetTilt) * 20;
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
