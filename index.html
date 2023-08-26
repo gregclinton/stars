@@ -32,7 +32,7 @@
     let targetTime = false;
 
     window.addEventListener('deviceorientation', e => {
-        put('tilt', (e.gamma * 1).toFixed(2));
+        put('tilt', (Math.round(e.gamma * 20) / 20).toFixed(2));
     });
 
     setInterval(() => {
