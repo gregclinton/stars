@@ -86,5 +86,24 @@ stars.add = function (latitude, longitude, sunset) {
 
             tr.setAttribute('onclick', "targetTime = " + time.getTime() + "; targetTilt = " + star.tilt);
         }
+
+        setInterval(() => {
+            const t = new Date();
+
+            if (t > dark) {
+                const time = formatTime(t);
+                let keepGoing = true;
+
+                while (keepGoing) {
+                    const tr = document.getElementById("stars").firstElementChild;
+                    keepGoing = false;
+
+                    if (tr && tr.lastElementChild.innerHTML.substring(0, 5) < time.substring(0, 5)) {
+                        tr.remove();
+                        keepGoing = true;
+                    }
+                }
+            }
+        }, 1000);
     });
 };
