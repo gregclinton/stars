@@ -79,7 +79,7 @@ stars.add = function (latitude, longitude, sunset) {
             addTd(star.con);
             addTd(star.mag.toFixed(1));
             addTd(star.direction);
-            addTd(star.tilt.toFixed(1));
+            addTd((Math.round(star.tilt * 20) / 20).toFixed(2));
             addTd(formatTime(star.time));
 
             document.getElementById('stars').appendChild(tr);
