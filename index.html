@@ -5,7 +5,7 @@
 <meta name="viewport" content="user-scalable=no,width=device-width" />
 
 <body>
-    <div id="countdown" onclick="targetTime = false"></div>
+    <div id="countdown" onclick="cancelTarget()"></div>
     <div id="tilt">
         <svg width="200", height="200">
             <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" />
@@ -36,6 +36,11 @@
     const put = (name, value) => document.getElementById(name).innerHTML = value;
     let targetTime = false;
     let targetTilt = 0;
+
+    function cancelTarget() {
+        targetTime = false;
+        targetTilt = 0;
+    }
 
     window.addEventListener('deviceorientation', e => {
         const line = document.getElementById('tilt');
