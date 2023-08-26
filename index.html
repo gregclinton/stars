@@ -6,15 +6,15 @@
 
 <body>
     <div id="countdown" onclick="targetTime = false"></div>
+    <div id="tilt">
+        <svg width="200", height="200">
+            <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" />
+            <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" id="tilt" />
+        </svg>
+    </div>
     <button id="allow" onclick="run()">allow</button>
     <div>
         <span id="time"></span>
-        <div>
-            <svg width="200", height="200">
-                <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" />
-                <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" id="tilt" />
-            </svg>
-        </div>
         <table>
             <tbody id="stars"/>
         </table>
@@ -43,6 +43,8 @@
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
+
+        document.getElementById('tilt')[targetTilt ? 'removeAttribute' : 'setAttribute']('hidden', 1);
     });
 
     setInterval(() => {
