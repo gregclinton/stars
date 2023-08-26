@@ -49,7 +49,19 @@
 
     setInterval(() => {
         put('time', formatTime(new Date()));
-        put('countdown', targetTime ? Math.abs(Math.floor((targetTime - new Date()) / 1000)) : '');
+        let text = '';
+
+        if (targetTime) {
+            const floor = Math.floor;
+            const t = targetTime - new Date();
+            const s = Math.abs(floor(t / 1000));
+            const h = floor(s / 3600) % 12;
+            const m = floor(s / 60) % 60;
+
+            text = (h > 0 ? [h, pad(m), pad(s % 60)] : m > 0 ? [m, pad(s % 60)] : [s]).join(':');
+        }
+
+        put('countdown', text);
     }, 1000);
 
     function run() {
