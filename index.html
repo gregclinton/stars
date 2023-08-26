@@ -6,10 +6,10 @@
 
 <body>
     <div id="countdown" onclick="cancelTarget()"></div>
-    <div id="tilt">
+    <div id="tiltDiv">
         <svg width="200", height="200">
             <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" />
-            <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" id="tilt" />
+            <line x1="0" y1="100" x2="200" y2="100" style="stroke:#555;stroke-width:0.5" id="tiltLine" />
         </svg>
     </div>
     <button id="allow" onclick="run()">allow</button>
@@ -43,7 +43,7 @@
     }
 
     window.addEventListener('deviceorientation', e => {
-        const line = document.getElementById('tilt');
+        const line = document.getElementById('tiltLine');
         const abs = Math.abs;
         const near = target => abs(e.gamma - target) < 2;
         const target = near(targetTilt) ? targetTilt : near(0) && abs(e.beta) < 2 ? 0 : near(90) ? 90 : 9999;
@@ -52,7 +52,7 @@
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
 
-        document.getElementById('tilt').style.display = targetTilt || target ? 'block' : 'none';
+        document.getElementById('tiltDiv').style.display = targetTilt || near(target) ? 'block' : 'none';
     });
 
     setInterval(() => {
