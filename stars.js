@@ -79,12 +79,12 @@ stars.add = function (latitude, longitude, sunset) {
             addTd(star.con);
             addTd(star.mag.toFixed(1));
             addTd(star.direction);
-            addTd((Math.round(star.tilt * 20) / 20).toFixed(2));
+            addTd((Math.round(star.tilt)));
             addTd(formatTime(star.time));
 
             document.getElementById('stars').appendChild(tr);
 
-            tr.setAttribute('onclick', "targetTime = " + time.getTime());
+            tr.setAttribute('onclick', "targetTime = " + time.getTime() + "; targetTilt = " + star.tilt);
         }
     });
 };

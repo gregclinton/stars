@@ -9,7 +9,12 @@
     <button id="allow" onclick="run()">allow</button>
     <div>
         <span id="time"></span>
-        <span id="tilt"></span>
+        <div>
+            <svg width="200", height="400">
+                <line x1="0" y1="200" x2="200" y2="200" style="stroke:#555;stroke-width:1" />
+                <line id="tilt" x1="0" y1="200" x2="200" y2="200" style="stroke:#555;stroke-width:1" />
+            </svg>
+        </div>
         <table>
             <tbody id="stars"/>
         </table>
@@ -30,9 +35,14 @@
 <script>
     const put = (name, value) => document.getElementById(name).innerHTML = value;
     let targetTime = false;
+    let targetTilt = 0;
 
     window.addEventListener('deviceorientation', e => {
-        put('tilt', (Math.round(e.gamma * 20) / 20).toFixed(2));
+        const line = document.getElementById('tilt');
+        const y = 200 + (e.gamma - targetTilt) / 90 * 200;
+
+        line.setAttribute('y1', y);
+        line.setAttribute('y2', y);
     });
 
     setInterval(() => {
