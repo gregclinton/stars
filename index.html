@@ -52,7 +52,7 @@
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
 
-        document.getElementById('tiltDiv').style.display = targetTilt || near(target) ? 'block' : 'none';
+        document.getElementById('tiltDiv').style.display = ((targetTilt || near(target)) ? 'block' : 'none');
     });
 
     setInterval(() => {
