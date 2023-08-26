@@ -44,7 +44,7 @@
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
 
-        document.getElementById('tilt')[targetTilt ? 'removeAttribute' : 'setAttribute']('hidden', 1);
+        document.getElementById('tilt').style.display = targetTilt ? 'block' : 'none';
     });
 
     setInterval(() => {
