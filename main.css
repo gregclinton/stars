@@ -47,6 +47,6 @@ tr.selected
 
 @media screen and (orientation:landscape)
 {
-    #maixn { display: none }
+    #main { display: none }
     #countdown { display: none }
 }
