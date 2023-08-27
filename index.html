@@ -54,7 +54,7 @@
         const tilt = e.gamma + (e.gamma < -10 ? 180 : 0);
         const near = target => abs(tilt - target) < 2;
         const target = near(targetTilt) ? targetTilt : near(0) ? 0 : 90;
-        const y = 150 + (tilt - target) * 40;
+        const y = 150 + (tilt - target) * 20;
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
