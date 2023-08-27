@@ -14,7 +14,12 @@ function select(id, time, tilt) {
     targetTime = time * 1;
     targetTilt = tilt * 1;
 
-    document.querySelector('#stars tr.selected').classList.remove('selected');
+    const selected = document.querySelector('#stars tr.selected');
+
+    if (selected) {
+        selected.classList.remove('selected');
+    }
+
     document.getElementById(id).classList.add('selected');
 }
 
