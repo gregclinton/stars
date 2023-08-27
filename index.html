@@ -8,9 +8,11 @@
     <button id="allow" onclick="run()">allow</button>
 
     <div id="level">
-        <svg width="200", height="300">
-            <line x1="0" y1="150" x2="200" y2="150" style="stroke:#fff" stroke-dasharray="0 20 0" />
-            <line x1="0" y1="150" x2="200" y2="150" style="stroke:#fff" stroke-dasharray="20" id="tilt" />
+        <svg width="260", height="300">
+            <line  x1="0" y1="150" x2="60" y2="150" style="stroke:#ccc" />
+            <line x1="140" y1="150" x2="200" y2="150" style="stroke:#ccc" />
+            <line  x1="60" y1="150" x2="140" y2="150" style="stroke:#fff" id="tilt" />
+            <text x="205" y="156" fill="#aaa" id="nominal">88.8°</text>
         </svg>
     </div>
 
@@ -58,6 +60,7 @@
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
+       // put('nominal', target === targetTilt ? target.toFixed(1) : target);
     });
 
     setInterval(() => {

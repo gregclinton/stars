@@ -84,7 +84,13 @@ stars.add = function (latitude, longitude, sunset) {
 
             document.getElementById('stars').appendChild(tr);
 
-            tr.setAttribute('onclick', "targetTime = " + time.getTime() + "; targetTilt = " + star.tilt);
+            function select() {
+                targetTime = time.getTime();
+                targetTilt = star.tilt;
+                targetRow.setAttribute('class', 'selected');
+            }
+
+            tr.setAttribute('onclick', "select(tr)");
         }
 
         setInterval(() => {
