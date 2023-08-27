@@ -12,7 +12,7 @@
             <line  x1="0" y1="150" x2="60" y2="150" style="stroke:#ccc" />
             <line x1="140" y1="150" x2="200" y2="150" style="stroke:#ccc" />
             <line  x1="60" y1="150" x2="140" y2="150" style="stroke:#fff" id="tilt" />
-            <text x="205" y="156" fill="#aaa" id="nominal">88.8°</text>
+            <text x="205" y="156" fill="#aaa" id="nominal" />
         </svg>
     </div>
 
@@ -60,7 +60,7 @@
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
-       // put('nominal', target === targetTilt ? target.toFixed(1) : target);
+        put('nominal', Math.round(target) + '°');
     });
 
     setInterval(() => {
