@@ -52,7 +52,7 @@
         const line = document.getElementById('tilt');
         const abs = Math.abs;
         const tilt = e.gamma + (e.gamma < -10 ? 180 : 0);
-        const near = target => abs(tilt - target) < 2;
+        const near = target => abs(tilt - target) < 10;
         const target = near(targetTilt) ? targetTilt : near(0) ? 0 : 90;
         const y = 150 + (tilt - target) * 20;
 
