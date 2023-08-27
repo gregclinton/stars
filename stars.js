@@ -10,6 +10,14 @@ function formatTime(t) {
     return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
+function select(time, tilt) {
+    targetTime = time * 1;
+    targetTilt = tilt * 1;
+
+    document.querySelector('#stars tr.selected').classList.remove('selected');
+//    document.querySelector('#stars tr').classList.add('selected');
+}
+
 stars.add = function (latitude, longitude, sunset) {
     const dark = new Date(sunset.getTime() + 30 * 60 * 1000);
     const now = new Date();
@@ -84,13 +92,7 @@ stars.add = function (latitude, longitude, sunset) {
 
             document.getElementById('stars').appendChild(tr);
 
-            function select() {
-                targetTime = time.getTime();
-                targetTilt = star.tilt;
-                targetRow.setAttribute('class', 'selected');
-            }
-
-            tr.setAttribute('onclick', "select(tr)");
+            tr.setAttribute('onclick', 'select(' + time.getTime() + ',' + star.tilt + ')');
         }
 
         setInterval(() => {

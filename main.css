@@ -14,7 +14,7 @@ body
 
 tr.selected
 {
-    color: red;
+    color: #c00;
 }
 
 #stars
