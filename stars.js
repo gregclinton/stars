@@ -10,12 +10,12 @@ function formatTime(t) {
     return [h - (h > 12 ? 12 : 0), pad(t.getMinutes()), pad(t.getSeconds())].join(':');
 }
 
-function select(time, tilt) {
+function select(id, time, tilt) {
     targetTime = time * 1;
     targetTilt = tilt * 1;
 
     document.querySelector('#stars tr.selected').classList.remove('selected');
-//    document.querySelector('#stars tr').classList.add('selected');
+    document.getElementById(id).classList.add('selected');
 }
 
 stars.add = function (latitude, longitude, sunset) {
@@ -71,7 +71,7 @@ stars.add = function (latitude, longitude, sunset) {
 
     stars.sort((a, b) => a.time - b.time);
 
-    stars.forEach(star => {
+    stars.forEach((star, i) => {
         const time = star.time;
 
         if (time > dark && time.getHours() < 22 && time.getDate() === today) {
@@ -92,7 +92,10 @@ stars.add = function (latitude, longitude, sunset) {
 
             document.getElementById('stars').appendChild(tr);
 
-            tr.setAttribute('onclick', 'select(' + time.getTime() + ',' + star.tilt + ')');
+            const id = 'star-' + i;
+
+            tr.setAttribute('id', id);
+            tr.setAttribute('onclick', 'select("' + id + '",' + time.getTime() + ',' + star.tilt + ')');
         }
 
         setInterval(() => {
