@@ -5,19 +5,25 @@
 <meta name="viewport" content="user-scalable=no,width=device-width" />
 
 <body>
-    <div id="countdown" onclick="cancelTarget()"></div>
-    <div id="tiltDiv">
+    <button id="allow" onclick="run()">allow</button>
+
+    <div id="level">
         <svg width="200", height="200">
             <line x1="0" y1="100" x2="200" y2="100" style="stroke:#fff" stroke-dasharray="0 20 0" />
             <line x1="0" y1="100" x2="200" y2="100" style="stroke:#fff" stroke-dasharray="20" id="tiltLine" />
         </svg>
     </div>
-    <button id="allow" onclick="run()">allow</button>
-    <div>
-        <span id="time"></span>
-        <table>
-            <tbody id="stars"/>
-        </table>
+
+    <div id="countdown" onclick="cancelTarget()">
+    </div>
+
+    <div id="main">
+        <div>
+            <span id="time"></span>
+            <table>
+                <tbody id="stars"/>
+            </table>
+        </div>    
     </div>
 </body>
 
@@ -51,8 +57,6 @@
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
-
-        document.getElementById('tiltDiv').style.display = ((targetTilt || near(target)) ? 'block' : 'none');
     });
 
     setInterval(() => {

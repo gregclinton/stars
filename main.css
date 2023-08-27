@@ -29,3 +29,12 @@ body
 {
     font-size: 200;
 }
+
+@media screen and (orientation:portrait) {
+    #level { display: none }
+}
+
+@media screen and (orientation:landscape) {
+    #main { display: none }
+    #countdown { display: none }
+}
