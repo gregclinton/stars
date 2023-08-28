@@ -11,7 +11,7 @@ function formatTime(t) {
 }
 
 function select(id, time, tilt) {
-    targetTime = time * 1;
+    targetTime = new Date(time * 1);
     targetTilt = tilt * 1;
 
     const selected = document.querySelector('#stars tr.selected');
