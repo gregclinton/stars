@@ -74,6 +74,18 @@ stars.add = function (latitude, longitude, sunset) {
         addStar(name, con, mag * 1, ra * 1, dec * 1);
     });
 
+    doubles.forEach(line => {
+        const [name, con, ra, dec, mag] = line.split(',');
+
+        function parse(s) {
+            const [a, b, c] = s.split(' ').map(s => s.substring(0, s.length - 1));
+
+            return (a * 1 + b / 60 + c / 3600) * (s[2] === 'h' ? 15 : 1);
+        }
+
+        addStar(name, con, mag * 1, parse(ra), parse(dec));
+    })
+
     stars.sort((a, b) => a.time - b.time);
 
     stars.forEach((star, i) => {
