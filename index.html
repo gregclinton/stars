@@ -68,7 +68,7 @@
     setInterval(() => {
         put('time', formatTime(new Date()));
 
-        const s = Math.abs(Math.floor(targetTime - new Date() / 1000));
+        const s = Math.abs(Math.floor((targetTime - new Date()) / 1000));
         put('countdown', s < 30 ? s : '');
     }, 1000);
 
