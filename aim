@@ -1,6 +1,7 @@
 telescope perpendicular to axis
-axis approximately east west
-axis horizontal (use thread plumb line)
+axis approximately east west (aim scope at permanent ground feature, in my case, slightly right of roof eave of kitty-corner house,
+   I'll see eave end about 1/5th from edge of field )
+axis horizontal (use thread plumb line on scope)
 axis accurately east west (telescope north south when horizontal -- use star near horizon)
 all angles must be within 0.05 degrees (about 1 mm over 1 m) so target appears in middle tenth of half degree field
 get target star or galaxy ra and dec J2000 coordinates from wikipedia
