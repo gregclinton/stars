@@ -59,7 +59,7 @@
         const near = a => dist(a, tilt) < 10;
         const nearer = (a, b) => dist(a, tilt) < dist(b, tilt);
         const target = near(targetTilt) ? targetTilt : near(0) ? 0 : nearer(targetTilt, 90) ? targetTilt : 90;
-        const y = 150 + (tilt - target) * 20;
+        const y = 150 + (tilt - target) * 40;
 
         line.setAttribute('y1', y);
         line.setAttribute('y2', y);
